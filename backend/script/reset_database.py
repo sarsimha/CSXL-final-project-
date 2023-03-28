@@ -41,6 +41,14 @@ with Session(engine) as session:
     session.execute(text(f'ALTER SEQUENCE {entities.RoleEntity.__table__}_id_seq RESTART WITH {len(roles.models) + 1}'))
     session.commit()
 
+# Add Organizations
+with Session(engine) as session:
+    from .dev_data import organizations
+    to_entity = entities.OrganizationEntity.from_model
+    session.add_all([to_entity(model) for model in organizations.models])
+    session.execute(text(f'ALTER SEQUENCE {entities.OrganizationEntity.__table__}_id_seq RESTART WITH {len(organizations.models) + 1}'))
+    session.commit()
+
 # Add Users to Roles
 with Session(engine) as session:
     from ..entities import UserEntity, RoleEntity
