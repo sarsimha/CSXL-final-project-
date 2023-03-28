@@ -8,8 +8,6 @@ from .entity_base import EntityBase
 from ..models import Organization
 
 
-
-
 class OrganizationEntity(EntityBase):
     __tablename__ = 'organization'
 
