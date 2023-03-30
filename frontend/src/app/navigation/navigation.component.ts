@@ -10,6 +10,7 @@ import { AuthenticationService } from '../authentication.service';
 import { Router } from '@angular/router';
 import { Profile, ProfileService } from '../profile/profile.service';
 import { PermissionService } from '../permission.service';
+import { Organization, OrganizationsService } from '../organizations/organizations.service'
 
 @Component({
   selector: 'app-navigation',
@@ -26,6 +27,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   public profile$: Observable<Profile | undefined>;
   public checkinPermission$: Observable<boolean>;
   public adminPermission$: Observable<boolean>;
+  public organization$: Observable<Organization| undefined>;
 
   constructor(
     public auth: AuthenticationService,
@@ -34,11 +36,13 @@ export class NavigationComponent implements OnInit, OnDestroy {
     private profileService: ProfileService,
     private breakpointObserver: BreakpointObserver,
     protected navigationService: NavigationTitleService,
-    protected errorDialog: MatDialog
+    protected errorDialog: MatDialog,
+    protected organizationService: OrganizationsService
   ) {
     this.profile$ = profileService.profile$;
     this.checkinPermission$ = this.permission.check('checkin.create', 'checkin/');
     this.adminPermission$ = this.permission.check('admin.view', 'admin/')
+    this.organization$ = organizationService.organization$
   }
 
   ngOnInit(): void {
