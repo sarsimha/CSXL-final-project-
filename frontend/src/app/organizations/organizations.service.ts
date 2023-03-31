@@ -29,7 +29,7 @@ export class OrganizationsService {
     );
   }
 
-
+  //Returns All Student Organizations
   getAllOrganizations(): Observable<Organization[]>{
     return this.http.get<Organization[]>('/api/organization')
   }
