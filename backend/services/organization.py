@@ -15,6 +15,7 @@ class OrganizationService:
 
     # Pull data from organization database
     def all(self) -> list[Organization] | None:
+        
         query = select(OrganizationEntity)
         org_entities: list[OrganizationEntity] = self._session.scalars(query).all()
         if org_entities is None:

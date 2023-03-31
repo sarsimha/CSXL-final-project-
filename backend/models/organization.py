@@ -6,5 +6,7 @@ class Organization(BaseModel):
     id: int | None = None
     name: str
     description: str
+    
+    link: str
     # TODO: Add events: list[Events] and create Event model
     # TODO: Figure out how to connect organization and events through ID
