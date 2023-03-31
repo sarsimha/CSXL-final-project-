@@ -5,7 +5,6 @@ import { isAuthenticated } from 'src/app/gate/gate.guard';
 import { Organization, OrganizationsService } from './organizations.service';
 
 
-
 @Component({
   selector: 'app-organizations',
   templateUrl: './organizations.component.html',
@@ -22,6 +21,5 @@ export class OrganizationsComponent {
 
   constructor(route: ActivatedRoute, private organizationsService: OrganizationsService) {
     this.allOrganizations$ = organizationsService.getAllOrganizations()
-
   }
 }
