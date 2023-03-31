@@ -14,7 +14,7 @@ export interface Organization {
   providedIn: 'root'
 })
 export class OrganizationsService {
-  public organization$: Observable<Organization[] | undefined>;
+  public organization$: Observable<Organization | undefined>;
 
   constructor(protected http: HttpClient,  protected auth: AuthenticationService) {
     this.organization$ = this.auth.isAuthenticated$.pipe(
@@ -30,8 +30,8 @@ export class OrganizationsService {
   }
 
 
-  getAllOrganizations(): Observable<Organization[]>{
-    return this.http.get<Organization[]>('/api/organization')
+  getAllOrganizations() {
+    return this.http.get<Organization>('/api/organization')
   }
 
 }

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
-import { Observable } from 'rxjs';
 import { isAuthenticated } from 'src/app/gate/gate.guard';
-import { Organization, OrganizationsService } from './organizations.service';
 
 
 
@@ -11,17 +9,20 @@ import { Organization, OrganizationsService } from './organizations.service';
   templateUrl: './organizations.component.html',
   styleUrls: ['./organizations.component.css']
 })
-export class OrganizationsComponent {
+export class OrganizationsComponent implements OnInit {
   public static Route: Route = {
     path: 'organizations',
     component: OrganizationsComponent,
     title: 'Organizations', 
     canActivate: [isAuthenticated], 
+    // canActivate: [isAuthenticated]
   }
-  public allOrganizations$: Observable<Organization[]>
 
-  constructor(route: ActivatedRoute, private organizationsService: OrganizationsService) {
-    this.allOrganizations$ = organizationsService.getAllOrganizations()
+  constructor(route: ActivatedRoute) {
 
+  }
+
+  ngOnInit(): void {
+    
   }
 }
