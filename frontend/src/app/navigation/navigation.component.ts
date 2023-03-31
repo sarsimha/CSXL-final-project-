@@ -27,7 +27,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   public profile$: Observable<Profile | undefined>;
   public checkinPermission$: Observable<boolean>;
   public adminPermission$: Observable<boolean>;
-  public organization$: Observable<Organization| undefined>;
+  public organization$: Observable<Organization[]| undefined>;
 
   constructor(
     public auth: AuthenticationService,
