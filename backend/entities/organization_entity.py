@@ -12,7 +12,7 @@ class OrganizationEntity(EntityBase):
     __tablename__ = 'organization'
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    name: Mapped[int] = mapped_column(String(32), unique=True, index=True)
+    name: Mapped[str] = mapped_column(String(32), unique=True, index=True)
     description: Mapped[str] = mapped_column(String(128), unique=True, index=True)
 
     @classmethod
