@@ -15,7 +15,6 @@ class EventEntity(EntityBase):
     date: Mapped[DateTime] = mapped_column(DateTime)
 
     org_id: Mapped[int] = mapped_column(ForeignKey('organization.id'), nullable = True)
-    #not too sure about the back_populates parameter
     organization: Mapped[OrganizationEntity] = relationship(back_populates='event')
 
     @classmethod
