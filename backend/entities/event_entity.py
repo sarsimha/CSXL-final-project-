@@ -12,6 +12,8 @@ class EventEntity(EntityBase):
     description: Mapped[str] = mapped_column(String(128))
     orgName: Mapped[str] = mapped_column(String)
     location: Mapped[str] = mapped_column(String)
+    # Date and time were split into two objects so that it would be easier for users to input data during create form.
+    # This could potentially be changed back to DateTime depending on what functionality we need.
     date: Mapped[str] = mapped_column(String)
     time: Mapped[str] = mapped_column(String)
 
