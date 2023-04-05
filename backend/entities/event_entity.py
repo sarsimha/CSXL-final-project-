@@ -18,7 +18,7 @@ class EventEntity(EntityBase):
     time: Mapped[str] = mapped_column(String)
 
     org_id: Mapped[int] = mapped_column(ForeignKey('organization.id'), nullable = True)
-    organization: Mapped[OrganizationEntity] = relationship(back_populates='event')
+    #organization: Mapped[OrganizationEntity] = relationship(back_populates='event')
 
     @classmethod
     def from_model(cls, model: Event) -> Self:
