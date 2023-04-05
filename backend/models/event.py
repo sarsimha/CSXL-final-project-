@@ -11,4 +11,5 @@ class Event(BaseModel):
     description: str
     date: str
     time: str
+    orgId: int
 
