@@ -33,10 +33,10 @@ We have created the following data models
 For development purposes, we created dummy organization objects that is initalized once running `backend/script/reset_database`. 
 
 #### API
-The script in `backend/api/organization.py` creates the api routes and method `get_orgs()` to retrieve all existing organizations.
+`backend/api/organization.py` creates the api routes and method `get_orgs()` to retrieve all existing organizations.
 
 #### Services
-We created a script in `backend/services/organization.py` that creates the Organization Service that has a method called `all()` that calls SQL query to parse all Organization Entities in the list that returns the equivalent Organization Models. 
+`backend/services/organization.py` creates the Organization Service that has a method called `all()` that calls SQL query to parse all Organization Entities in the list that returns the equivalent Organization Models. 
 
 ### Frontend
 
