@@ -17,8 +17,8 @@ class EventEntity(EntityBase):
     date: Mapped[str] = mapped_column(String)
     time: Mapped[str] = mapped_column(String)
 
-    org_id: Mapped[int] = mapped_column(ForeignKey('organization.id'), nullable = True)
-    organization: Mapped[OrganizationEntity] = relationship(back_populates='event')
+    orgId: Mapped[int] = mapped_column(ForeignKey('organization.id'), nullable = True)
+    #organization: Mapped[OrganizationEntity] = relationship(back_populates='event')
 
     @classmethod
     def from_model(cls, model: Event) -> Self:
@@ -29,7 +29,8 @@ class EventEntity(EntityBase):
             orgName = model.orgName,
             location = model.location,
             date = model.date,
-            time = model.time
+            time = model.time,
+            orgId = model.orgId
         )
     
     def to_model(self) -> Event:
@@ -40,6 +41,7 @@ class EventEntity(EntityBase):
             location = self.location,
             description = self.description,
             date = self.date,
-            time = self.time
+            time = self.time,
+            orgId= self.orgId
         )
 
