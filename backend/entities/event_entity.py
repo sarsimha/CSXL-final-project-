@@ -29,8 +29,7 @@ class EventEntity(EntityBase):
             orgName = model.orgName,
             location = model.location,
             date = model.date,
-            time = model.time,
-            orgId = model.orgId
+            time = model.time
         )
     
     def to_model(self) -> Event:
@@ -41,7 +40,6 @@ class EventEntity(EntityBase):
             location = self.location,
             description = self.description,
             date = self.date,
-            time = self.time,
-            orgId= self.orgId
+            time = self.time
         )
 
