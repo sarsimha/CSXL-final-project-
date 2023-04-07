@@ -32,7 +32,7 @@ export class EventService {
     );
   }
 
-  //Returns All Events
+  // Returns all events from database
   getAllEvents(): Observable<Event[]> {
     return this.http.get<Event[]>('/api/event')
   }

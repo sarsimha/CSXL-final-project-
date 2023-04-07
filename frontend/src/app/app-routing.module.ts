@@ -14,7 +14,6 @@ const routes: Routes = [
   GateComponent.Route,
   OrganizationsComponent.Route,
   EventComponent.Route,
-  
   { path: 'admin', title: 'Admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
 ];
 
