@@ -11,7 +11,7 @@ class EventService:
     def __init__(self, session: Session = Depends(db_session)):
         self._session = session
 
-    # Pull data from event database
+    # Pull all events that exists in the event database
     def all(self) -> list[Event] | None:
         query = select(EventEntity)
         event_entities: list[EventEntity] = self._session.scalars(query).all()

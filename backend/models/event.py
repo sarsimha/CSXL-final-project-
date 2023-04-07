@@ -1,5 +1,6 @@
 """Event is the data object that is connected to organizations in the CS dept."""
 # from datetime import datetime
+from typing import Optional
 from pydantic import BaseModel
 
 
@@ -11,5 +12,5 @@ class Event(BaseModel):
     description: str
     date: str
     time: str
-    orgId: int
+    # orgId: Optional[int]
 

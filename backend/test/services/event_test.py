@@ -1,8 +1,11 @@
+import pytest
 
-"""Sample Organization models to use in the development environment."""
-
+from sqlalchemy.orm import Session
 from ...models import Event
-from . import organizations
+from ...entities import EventEntity
+from ...services import EventService
+
+# Mock Models, same from dev data
 
 tie_dye_social = Event(id=301, name='Tie Dye Social', orgName='Pearl Hacks', location='fb011',
                         description='Come meet other hackers and tie-dye a Pearl Hacks shirt in your favorite color.', 
@@ -23,9 +26,24 @@ models = [
     bofa_panel
 ]
 
-#Will be used in the next sprint to connect the organization with event 
-pairs = [
-    (organizations.pearl_hacks, tie_dye_social),
-    (organizations.app_team, networking_csxl),
-    (organizations.black_technology, bofa_panel)
-]
+@pytest.fixture(autouse=True)
+def setup_teardown(test_session: Session):
+    # Add test events to session
+    testEvent1 = EventEntity.from_model(tie_dye_social)
+    testEvent2 = EventEntity.from_model(networking_csxl)
+    testEvent3 = EventEntity.from_model(bofa_panel)
+    test_session.add(testEvent1)
+    test_session.add(testEvent2)
+    test_session.add(testEvent3)
+    test_session.commit()
+    
+
+@pytest.fixture()
+def permission(test_session: Session):
+    return EventService(test_session)
+
+
+def test_get_all_event(permission: EventService):
+    """ Retrieves all dummy data using Organization Service """
+    assert len(permission.all()) == 3
+    
