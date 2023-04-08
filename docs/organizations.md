@@ -54,9 +54,11 @@ For development purposes, we created dummy event objects that are initalized onc
 `backend/services/event.py` creates the Organization Service that has method `all()` that calls SQL query to parse all Event Entities in the list that returns the equivalent Event Models. 
 
 ### Frontend
-*TODO: Documentation on frontend implementation for viewing events*
 The folder `frontend/src/app/event` contains the implementation for viewing events.
 `event.service.ts` creates the Events Service that has a method `getAllEvents()` that makes an HTTP GET request to return the list of events.
 
 ## Creating Events
-*TODO: Documentation on backend and frontend implementation for creating events*
+
+### Backend logic
+
+### Frontend
