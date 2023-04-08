@@ -29,23 +29,34 @@ We have created the following data models
 ## Viewing Student Organizations
 
 ### Backend Logic
-
-For development purposes, we created dummy organization objects that is initalized once running `backend/script/reset_database`. 
+For development purposes, we created three dummy organization objects, `pearl_hacks`, `app_team`, and `black_technology`, that are initalized once running `backend/script/reset_database`.
 
 #### API
-`backend/api/organization.py` creates the api routes and method `get_orgs()` to retrieve all existing organizations.
+`backend/api/organization.py` creates the API routes and method `get_orgs()` to retrieve all existing organizations.
 
 #### Services
-`backend/services/organization.py` creates the Organization Service that has a method called `all()` that calls SQL query to parse all Organization Entities in the list that returns the equivalent Organization Models. 
+`backend/services/organization.py` creates the Organization Service that has method `all()` that calls SQL query to parse all Organization Entities in the list that returns the equivalent Organization Models. 
 
 ### Frontend
-
 *TODO: Documentation on frontend implementation for viewing orgs*
+The folder `frontend/src/app/organizations` contains the implementation for viewing organizations.
+`organizations.service.ts` creates the Organizations Service that has a method `getAllOrganizations()` that makes an HTTP GET request to return the list of organizations.
 
 ## Viewing Events
 
-*TODO: Documentation on backend and frontend implementation for viewing events*
+### Backend Logic
+For development purposes, we created dummy event objects that are initalized once running `backend/script/reset_database`.
+
+#### API
+`backend/api/event.py` creates the API routes and method `get_events()` to retrieve all existing events.
+
+#### Services
+`backend/services/event.py` creates the Organization Service that has method `all()` that calls SQL query to parse all Event Entities in the list that returns the equivalent Event Models. 
+
+### Frontend
+*TODO: Documentation on frontend implementation for viewing events*
+The folder `frontend/src/app/event` contains the implementation for viewing events.
+`event.service.ts` creates the Events Service that has a method `getAllEvents()` that makes an HTTP GET request to return the list of events.
 
 ## Creating Events
-
 *TODO: Documentation on backend and frontend implementation for creating events*
