@@ -14,3 +14,11 @@ class Event(BaseModel):
     time: str
     # orgId: Optional[int]
 
+class CreateEvent(BaseModel):
+    # id: int | None
+    name: str
+    orgName: str
+    location: str
+    description: str
+    date: str
+    time: str

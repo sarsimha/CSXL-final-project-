@@ -19,3 +19,11 @@ class EventService:
             return None
         else:
             return [entity.to_model() for entity in event_entities]
+        
+    # Create new event
+    def create_event(self, event: Event) -> Event:
+        #TODO: Add check for permissions (permission to access page + permission to submit)
+        entity = EventEntity.from_model(event)
+        self._session.add(entity)
+        self._session.commit()
+        return entity.to_model()
