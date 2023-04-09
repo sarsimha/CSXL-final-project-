@@ -1,5 +1,4 @@
-# from typing import Annotated
-from fastapi import APIRouter, Depends #, Form
+from fastapi import APIRouter, Depends
 from ..services import EventService
 from ..models import Event, CreateEvent
 
