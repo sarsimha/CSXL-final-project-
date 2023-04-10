@@ -64,6 +64,6 @@ export class EventRegService {
 
     let event: Event = {name, orgName, location, description, date, time};
 
-    return this.http.post<Event>("/api/create", event)
+    return this.http.post<Event>("/api/event/create", event)
   }
 }
