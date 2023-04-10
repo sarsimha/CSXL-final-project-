@@ -1,0 +1,37 @@
+<h1>Event Request Form</h1>
+
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+    <div>
+        <label for="name">Event Name</label>
+        <input id="name" type="text" formControlName="name">
+      </div>
+
+    <div>
+      <label for="orgName">Organization Name</label>
+      <input id="orgName" type="text" formControlName="orgName">
+    </div>
+    
+    <div>
+      <label for="location">Location</label>
+      <input id="location" type="text" formControlName="location">
+    </div>
+
+    <div>
+        <label for="description">Description</label>
+        <input id="description" type="text" formControlName="description">
+    </div>
+
+    <div>
+        <label for="date">Date</label>
+        <input id="date" type="text" formControlName="date">
+    </div>
+
+    <div>
+        <label for="time">Time</label>
+        <input id="time" type="text" formControlName="time">
+    </div>
+
+    <button class="button" type="submit">Submit</button>
+</form>
+
+<hr>
