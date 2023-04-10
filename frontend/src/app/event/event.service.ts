@@ -18,6 +18,7 @@ export interface Event {
 })
 export class EventService {
   public event$: Observable<Event[] | undefined>;
+  public allEvents = this.getAllEvents()
 
   constructor(protected http: HttpClient, protected auth: AuthenticationService) {
     this.event$ = this.auth.isAuthenticated$.pipe(

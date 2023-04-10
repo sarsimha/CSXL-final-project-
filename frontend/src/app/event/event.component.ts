@@ -11,6 +11,7 @@ import { Event, EventService } from './event.service';
   styleUrls: ['./event.component.css']
 })
 export class EventComponent {
+  public displayedColumns = ['event', 'description', 'location', 'org-name', 'date', 'time'];
   public static Route: Route = {
     path: 'event',
     component: EventComponent,
