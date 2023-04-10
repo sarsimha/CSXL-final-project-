@@ -58,6 +58,18 @@ export class EventRegService {
       errors.push(`Date required.`)
     }
 
+    if (time === "") {
+      errors.push(`Time required.`)
+    }
+
+    if (date != "%%/%%/%%%%") {
+      errors.push(`Please format date: MM/DD/YYYY.`)
+    }
+
+    if (time != "%%:%%%%") {
+      errors.push(`Please format time like this: 05:30PM.`)
+    }
+
     if (errors.length > 0) {
       return throwError(() => { return new Error(errors.join("\n")) });
     }
