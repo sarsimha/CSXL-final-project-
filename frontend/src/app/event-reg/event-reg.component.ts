@@ -17,7 +17,6 @@ export class EventRegComponent {
     title: 'Event Registration', 
     canActivate: [isAuthenticated], 
   }
-  // public events$: Observable<Event[]>
 
   constructor(
     private eventRegService: EventRegService,
@@ -37,7 +36,6 @@ export class EventRegComponent {
 
 
   onSubmit(): void {
-    // console.log('start submit')
     let form = this.eventForm.value;
     let name = form.name ?? "";
     let orgName = form.orgName ?? "";
@@ -55,7 +53,6 @@ export class EventRegComponent {
   }
 
   private onSuccess(event: Event): void {
-    // console.log("scces")
     window.alert(`Thanks for registering your event: ${event.name}`);
     this.eventForm.reset();
   }

@@ -36,6 +36,7 @@ import { GateComponent } from './gate/gate.component';
 import { ProfileEditorComponent } from './profile/profile-editor/profile-editor.component';
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { EventComponent } from './event/event.component';
+import { EventRegComponent } from './event-reg/event-reg.component';
 
 @NgModule({
   declarations: [
