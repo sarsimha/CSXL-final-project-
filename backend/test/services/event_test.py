@@ -39,18 +39,18 @@ def setup_teardown(test_session: Session):
     
 
 @pytest.fixture()
-def permission(test_session: Session):
+def event(test_session: Session):
     return EventService(test_session)
 
 
-def test_get_all_event(permission: EventService):
+def test_get_all_event(event: EventService):
     """ Retrieves all dummy data using Event Service """
-    assert len(permission.all()) == 3
+    assert len(event.all()) == 3
     
-def test_create_event_added(permission: EventService):
+def test_create_event_added(event: EventService):
     """ Create one event, check added to event database """
 
-    event = Event(
+    new_event = Event(
         name="Resume and Snacks",
         orgName="Pearl Hacks",
         location="fb001",
@@ -59,13 +59,13 @@ def test_create_event_added(permission: EventService):
         time="06:30PM"
     )
 
-    permission.create_event(event)
-    assert len(permission.all()) == 4
+    event.create_event(new_event)
+    assert len(event.all()) == 4
 
-def test_create_event_position(permission: EventService):
+def test_create_event_position(event: EventService):
     """ Create one event, check position added to database """
 
-    event = Event(
+    new_event = Event(
         name="Resume and Snacks",
         orgName="Pearl Hacks",
         location="fb001",
@@ -74,5 +74,5 @@ def test_create_event_position(permission: EventService):
         time="05:30PM"
     )
 
-    permission.create_event(event)
-    assert permission.all()[3].name == "Resume and Snacks"
+    event.create_event(new_event)
+    assert event.all()[3].name == "Resume and Snacks"
