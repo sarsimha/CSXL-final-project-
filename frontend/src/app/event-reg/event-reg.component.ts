@@ -14,7 +14,7 @@ export class EventRegComponent {
   public static Route: Route = {
     path: 'event_reg',
     component: EventRegComponent,
-    title: 'Event Registration', 
+    title: 'Event Form', 
     canActivate: [isAuthenticated], 
   }
 
