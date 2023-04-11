@@ -44,6 +44,35 @@ def permission(test_session: Session):
 
 
 def test_get_all_event(permission: EventService):
-    """ Retrieves all dummy data using Organization Service """
+    """ Retrieves all dummy data using Event Service """
     assert len(permission.all()) == 3
     
+def test_create_event_added(permission: EventService):
+    """ Create one event, check added to event database """
+
+    event = Event(
+        name="Resume and Snacks",
+        orgName="Pearl Hacks",
+        location="fb001",
+        description="Bring your resume to discuss with recruiters over snacks",
+        date="04/16/2023",
+        time="06:30PM"
+    )
+
+    permission.create_event(event)
+    assert len(permission.all()) == 4
+
+def test_create_event_position(permission: EventService):
+    """ Create one event, check position added to database """
+
+    event = Event(
+        name="Resume and Snacks",
+        orgName="Pearl Hacks",
+        location="fb001",
+        description="Bring your resume to discuss with recruiters over snacks",
+        date="04/13/2023",
+        time="05:30PM"
+    )
+
+    permission.create_event(event)
+    assert permission.all()[3].name == "Resume and Snacks"
