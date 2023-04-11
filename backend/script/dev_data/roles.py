@@ -14,8 +14,11 @@ staff = Role(id=2, name="Staff")
 
 ambassador = Role(id=3, name="Ambassador")
 
+org_exec = Role(id=4, name="Organization Executive")
+
 models = [
     sudoer,
     staff,
-    ambassador
+    ambassador,
+    org_exec
 ]

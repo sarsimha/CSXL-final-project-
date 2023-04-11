@@ -10,5 +10,6 @@ __license__ = "MIT"
 pairs = [
     (users.root, roles.sudoer),
     (users.merritt_manager, roles.staff),
-    (users.arden_ambassador, roles.ambassador)
+    (users.arden_ambassador, roles.ambassador),
+    (users.eli_exec, roles.org_exec)
 ]
