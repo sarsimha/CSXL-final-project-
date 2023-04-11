@@ -10,8 +10,9 @@ import { AuthenticationService } from '../authentication.service';
 import { Router } from '@angular/router';
 import { Profile, ProfileService } from '../profile/profile.service';
 import { PermissionService } from '../permission.service';
-import { Organization, OrganizationsService } from '../organizations/organizations.service'
-import { Event, EventService } from '../event/event.service'
+import { Organization, OrganizationsService } from '../organizations/organizations.service';
+import { Event, EventService } from '../event/event.service';
+import { EventRegService } from '../event-reg/event-reg.service';
 
 @Component({
   selector: 'app-navigation',
@@ -40,7 +41,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     protected navigationService: NavigationTitleService,
     protected errorDialog: MatDialog,
     protected organizationService: OrganizationsService,
-    protected eventService: EventService
+    protected eventService: EventService,
+    protected eventRegService: EventRegService
   ) {
     this.profile$ = profileService.profile$;
     this.checkinPermission$ = this.permission.check('checkin.create', 'checkin/');

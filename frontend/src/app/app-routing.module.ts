@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfileEditorComponent } from './profile/profile-editor/profile-editor.component';
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { EventComponent } from './event/event.component'
+import { EventRegComponent } from './event-reg/event-reg.component';
 
 
 const routes: Routes = [
@@ -13,6 +14,7 @@ const routes: Routes = [
   ProfileEditorComponent.Route,
   GateComponent.Route,
   OrganizationsComponent.Route,
+  EventRegComponent.Route,
   EventComponent.Route,
   { path: 'admin', title: 'Admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
 ];
