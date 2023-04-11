@@ -20,9 +20,9 @@ The student organizations achieve the following user stories:
 
 ## Data Models
 
-We have created the following data models
+We have created the following data models:
 - Organization: a model for Student Organization that has the id, name, and description. 
-- Event: 
+- Event: a model for an Event created by a Student Organization that has the event name, description, organization, location, date, and time.
 
 *TODO: Add all data models created in the final project, update as needed*
 
