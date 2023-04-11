@@ -12,6 +12,7 @@ import { NgForOf } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table'
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -35,7 +36,6 @@ import { GateComponent } from './gate/gate.component';
 import { ProfileEditorComponent } from './profile/profile-editor/profile-editor.component';
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { EventComponent } from './event/event.component';
-import { EventRegComponent } from './event-reg/event-reg.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +57,7 @@ import { EventRegComponent } from './event-reg/event-reg.component';
     AppRoutingModule,
     LayoutModule,
     ReactiveFormsModule,
+    MatTableModule,
     MatButtonModule,
     MatCardModule,
     MatDialogModule,

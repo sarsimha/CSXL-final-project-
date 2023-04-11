@@ -1,20 +1,37 @@
-<table>
-    <thead>
-        <th>Event</th>
-        <th>Organization</th>
-        <th>Location</th>
-        <th>Description</th>
-        <th>Date</th>
-        <th>Time</th>
-    </thead>
-    <tbody>
-        <tr *ngFor="let event of allEvents$ | async">
-            <td>{{ event.name }}</td>
-            <td>{{ event.orgName }}</td>
-            <td>{{ event.location }}</td>
-            <td>{{ event.description }}</td>
-            <td>{{ event.date }}</td>
-            <td>{{ event.time }}</td>
-        </tr>
-    </tbody>
-</table>
+<div class="container mat-elevation-z8">
+    <mat-table #table [dataSource]="allEvents$">
+
+        <ng-container matColumnDef="event">
+            <th mat-header-cell *matHeaderCellDef> Event </th>
+            <td mat-cell *matCellDef="let event"> {{event.name}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="org-name">
+            <th mat-header-cell *matHeaderCellDef> Organization </th>
+            <td mat-cell *matCellDef="let event"> {{event.orgName}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="location">
+            <th mat-header-cell *matHeaderCellDef> Location </th>
+            <td mat-cell *matCellDef="let event"> {{event.location}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Description </th>
+            <td mat-cell *matCellDef="let event"> {{event.description}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef> Date </th>
+            <td mat-cell *matCellDef="let event"> {{event.date}} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="time">
+            <th mat-header-cell *matHeaderCellDef> Time </th>
+            <td mat-cell *matCellDef="let event"> {{event.time}} </td>
+        </ng-container>
+        
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+</div>

@@ -18,6 +18,7 @@ export class OrganizationsComponent {
     canActivate: [isAuthenticated], 
   }
   public allOrganizations$: Observable<Organization[]>
+  public displayedColumns = ['org-name', 'description']
 
   constructor(route: ActivatedRoute, private organizationsService: OrganizationsService) {
     this.allOrganizations$ = organizationsService.getAllOrganizations()

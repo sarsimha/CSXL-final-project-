@@ -1,23 +1,14 @@
-table {
-    width: 100%;
+.mat-column-event {
+    width: 15%;
+    text-align: left;
 }
 
-td {
-    padding: 15px;
-    font-size: 15px;
+.mat-column-description {
+    width: 45%;
     text-align: left;
-    border-left: solid 2px white;
-    border-right: solid 2px white;
-    border-bottom: solid 2px white;
-    border-top: solid 2px white;
 }
 
-th {
-    font-size: 25px;
+.mat-column-location, .mat-column-org-name, .mat-column-date, .mat-column-time {
+    width: 10%;
     text-align: left;
-    padding: 15px;
-    border-left: solid 2px white;
-    border-right: solid 2px white;
-    border-bottom: solid 2px white;
-    border-top: solid 2px white;
 }
