@@ -29,6 +29,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
   public profile$: Observable<Profile | undefined>;
   public checkinPermission$: Observable<boolean>;
   public adminPermission$: Observable<boolean>;
+  public execPermission$: Observable<boolean>;
   public organization$: Observable<Organization[] | undefined>;
   public event$: Observable<Event[] | undefined>;
 
@@ -47,6 +48,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.profile$ = profileService.profile$;
     this.checkinPermission$ = this.permission.check('checkin.create', 'checkin/');
     this.adminPermission$ = this.permission.check('admin.view', 'admin/')
+    this.execPermission$ = this.permission.check('event.create_event', 'event_reg/')
     this.organization$ = organizationService.organization$
     this.event$ = eventService.event$
   }

@@ -11,11 +11,11 @@
         <a *ngIf="(profile$ | async) === undefined; else authenticated" mat-list-item href="/auth?continue_to={{router.url}}">Sign in</a>
         <ng-template #authenticated mat-list-item>
           <a mat-list-item *ngIf="adminPermission$ | async" routerLink="/admin">Admin</a>
+          <a mat-list-item *ngIf="execPermission$ | async" routerLink="/event_reg">Create Event</a>
           <mat-divider></mat-divider>
           <a mat-list-item routerLink="/profile">Profile</a>
           <a mat-list-item routerLink="/organizations">Organizations</a>
           <a mat-list-item routerLink="/event">CS Events</a>
-          <a mat-list-item routerLink="/event_reg">Create an Event</a>
           <a mat-list-item (click)="auth.signOut()">Sign out</a>
         </ng-template>
       </mat-nav-list>
