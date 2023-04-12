@@ -23,9 +23,10 @@ class EventService:
             return [entity.to_model() for entity in event_entities]
         
     # Create new event
-    def create_event(self, subject: User, event: Event) -> Event:
+    def create_event(self, subject: User | None, event: Event) -> Event:
         #TODO: Add check for permissions (permission to access page + permission to submit)
-        self._permission.enforce(subject, 'event.create_event', 'event/create/')
+        if subject:
+            self._permission.enforce(subject, 'event.create_event', 'event/create/')
 
         entity = EventEntity.from_model(event)
         self._session.add(entity)

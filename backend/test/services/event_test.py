@@ -1,9 +1,16 @@
 import pytest
 
 from sqlalchemy.orm import Session
-from ...models import Event
-from ...entities import EventEntity
-from ...services import EventService
+from ...models import User, Role, Permission, Event
+from ...entities import UserEntity, RoleEntity, PermissionEntity, EventEntity
+from ...services import PermissionService, EventService
+
+
+# Mock Models for Users 
+executive = User(id=3, pid=777777777, onyen='executive', email='executive@unc.edu')
+executive_role = Role(id=3, name='executive')
+
+executive_permission: Permission
 
 # Mock Models, same from dev data
 
@@ -36,6 +43,19 @@ def setup_teardown(test_session: Session):
     test_session.add(testEvent2)
     test_session.add(testEvent3)
     test_session.commit()
+
+    # Bootstrap executive and role
+    executive_entity = UserEntity.from_model(executive)
+    test_session.add(executive_entity)
+    executive_role_entity = RoleEntity.from_model(executive_role)
+    executive_role_entity.users.append(executive_entity)
+    test_session.add(executive_role_entity)
+    executive_permission_entity = PermissionEntity(
+        action='event.create_event', resource='*', role=executive_role_entity)
+    test_session.add(executive_permission_entity)
+    global executive_permission
+    executive_permission = executive_permission_entity.to_model()
+    yield
     
 
 @pytest.fixture()
@@ -59,7 +79,7 @@ def test_create_event_added(event: EventService):
         time="06:30PM"
     )
 
-    event.create_event(new_event)
+    event.create_event(None, new_event)
     assert len(event.all()) == 4
 
 def test_create_event_position(event: EventService):
@@ -74,5 +94,20 @@ def test_create_event_position(event: EventService):
         time="05:30PM"
     )
 
-    event.create_event(new_event)
+    event.create_event(None, new_event)
     assert event.all()[3].name == "Resume and Snacks"
+
+def test_executive_create_event(event: EventService):
+    p = Permission(action='event.create_event', resource='*')
+    newEvent = Event(
+        name="Test event",
+        orgName="Test org",
+        location="Test location",
+        description="Test decription",
+        date="11/11/1111",
+        time="11:59PM"
+    )
+    event.create_event(executive, newEvent)
+    assert len(event.all()) == 5
+    # create event and pass in ambassador, should throw user Permission Error
+    
