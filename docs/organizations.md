@@ -62,3 +62,5 @@ The folder `frontend/src/app/event` contains the implementation for viewing even
 ### Backend logic
 
 ### Frontend
+The folder `frontend/src/app/event-reg` contains the implementation for creating events.
+`event-reg.service.ts` creates the EventReg Service that has a method `createEvent(name: string, orgName: string, location: string, description: string, date: string, time: string)` that makes an HTTP POST request to create a new event. 
