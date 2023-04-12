@@ -48,7 +48,7 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.profile$ = profileService.profile$;
     this.checkinPermission$ = this.permission.check('checkin.create', 'checkin/');
     this.adminPermission$ = this.permission.check('admin.view', 'admin/')
-    this.execPermission$ = this.permission.check('event.create_event', 'event_reg/')
+    this.execPermission$ = this.permission.check('event.create_event', 'event/create/')
     this.organization$ = organizationService.organization$
     this.event$ = eventService.event$
   }

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute, Route } from '@angular/router';
+import { ActivatedRoute, Route, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { isAuthenticated } from 'src/app/gate/gate.guard';
 import { EventRegService, Event } from './event-reg.service';
+import { permissionGuard } from '../permission.guard';
 
 @Component({
   selector: 'app-event-reg',
@@ -15,13 +16,14 @@ export class EventRegComponent {
     path: 'event_reg',
     component: EventRegComponent,
     title: 'Event Form', 
-    canActivate: [isAuthenticated], 
+    // only eli exec (and root) able to access page, otherwise redirect
+    canActivate: [permissionGuard('event.create_event', 'event/create/')]
   }
 
   constructor(
     private eventRegService: EventRegService,
     private formBuilder: FormBuilder,
-    route: ActivatedRoute, 
+    route: ActivatedRoute
   ) {
   }
 
@@ -33,7 +35,6 @@ export class EventRegComponent {
     date: '',
     time: ''
   });
-
 
   onSubmit(): void {
     let form = this.eventForm.value;

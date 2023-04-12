@@ -23,6 +23,8 @@ class EventService:
     # Create new event
     def create_event(self, event: Event) -> Event:
         #TODO: Add check for permissions (permission to access page + permission to submit)
+        #self._permission.enforce(subject, 'event_create', 'event/create/')
+
         entity = EventEntity.from_model(event)
         self._session.add(entity)
         self._session.commit()
