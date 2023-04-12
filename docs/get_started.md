@@ -63,5 +63,6 @@ For reference, here are some mock personas that are installed in the `reset_data
 
 1. Sol Student: <http://localhost:1560/auth/as/sol/100000000>
 2. Arden Ambassador: <http://localhost:1560/auth/as/arden/100000001>
-3. Merritt Manager: <http://localhost:1560/auth/as/merritt/100000002>
-4. Super User: <http://localhost:1560/auth/as/root/999999999>
+3. Eli Executive: <http://localhost:1560/auth/as/eli/123456789>
+4. Merritt Manager: <http://localhost:1560/auth/as/merritt/100000002>
+5. Super User: <http://localhost:1560/auth/as/root/999999999>
