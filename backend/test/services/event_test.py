@@ -3,14 +3,18 @@ import pytest
 from sqlalchemy.orm import Session
 from ...models import User, Role, Permission, Event
 from ...entities import UserEntity, RoleEntity, PermissionEntity, EventEntity
-from ...services import PermissionService, EventService
+from ...services import PermissionService, EventService, UserPermissionError
 
 
 # Mock Models for Users 
 executive = User(id=3, pid=777777777, onyen='executive', email='executive@unc.edu')
 executive_role = Role(id=3, name='executive')
-
 executive_permission: Permission
+
+ambassador = User(id=2, pid=888888888, onyen='ambassador',
+                  email='ambassador@unc.edu')
+ambassador_role = Role(id=2, name='ambassadors')
+ambassador_permission: Permission
 
 # Mock Models, same from dev data
 
@@ -42,7 +46,6 @@ def setup_teardown(test_session: Session):
     test_session.add(testEvent1)
     test_session.add(testEvent2)
     test_session.add(testEvent3)
-    test_session.commit()
 
     # Bootstrap executive and role
     executive_entity = UserEntity.from_model(executive)
@@ -53,8 +56,23 @@ def setup_teardown(test_session: Session):
     executive_permission_entity = PermissionEntity(
         action='event.create_event', resource='*', role=executive_role_entity)
     test_session.add(executive_permission_entity)
+
+    # Bootstrap ambassador and role
+    ambassador_entity = UserEntity.from_model(ambassador)
+    test_session.add(ambassador_entity)
+    ambassador_role_entity = RoleEntity.from_model(ambassador_role)
+    ambassador_role_entity.users.append(ambassador_entity)
+    test_session.add(ambassador_role_entity)
+    ambassador_permission_entity = PermissionEntity(
+        action='checkin.create', resource='checkin', role=ambassador_role_entity)
+    test_session.add(ambassador_permission_entity)
+
+    test_session.commit()
+
     global executive_permission
     executive_permission = executive_permission_entity.to_model()
+    global ambassador_permission
+    ambassador_permission = ambassador_permission_entity.to_model()
     yield
     
 
@@ -97,8 +115,7 @@ def test_create_event_position(event: EventService):
     event.create_event(None, new_event)
     assert event.all()[3].name == "Resume and Snacks"
 
-def test_executive_create_event(event: EventService):
-    p = Permission(action='event.create_event', resource='*')
+def test_executive_only_create_event(event: EventService):
     newEvent = Event(
         name="Test event",
         orgName="Test org",
@@ -109,5 +126,8 @@ def test_executive_create_event(event: EventService):
     )
     event.create_event(executive, newEvent)
     assert len(event.all()) == 5
-    # create event and pass in ambassador, should throw user Permission Error
-    
+    try:
+        event.create_event(ambassador, newEvent)
+        assert False
+    except UserPermissionError:
+        assert True
