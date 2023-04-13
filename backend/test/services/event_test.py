@@ -124,10 +124,19 @@ def test_executive_only_create_event(event: EventService):
         date="11/11/1111",
         time="11:59PM"
     )
+    newEvent_1 = Event(
+        name="Test event1",
+        orgName="Test org1",
+        location="Test location1",
+        description="Test decription1",
+        date="11/11/1111",
+        time="11:59PM"
+    )
     event.create_event(executive, newEvent)
     assert len(event.all()) == 5
+    
     try:
-        event.create_event(ambassador, newEvent)
+        event.create_event(ambassador, newEvent_1)
         assert False
     except UserPermissionError:
         assert True
