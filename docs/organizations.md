@@ -51,7 +51,7 @@ For development purposes, we created dummy event objects that are initalized onc
 `backend/api/event.py` creates the API routes and method `get_events()` to retrieve all existing events.
 
 #### Services
-`backend/services/event.py` creates the Organization Service that has method `all()` that calls SQL query to parse all Event Entities in the list that returns the equivalent Event Models. 
+`backend/services/event.py` creates the Event Service that has method `all()` that calls SQL query to parse all Event Entities in the list that returns the equivalent Event Models. 
 
 ### Frontend
 The folder `frontend/src/app/event` contains the implementation for viewing events.
@@ -60,6 +60,12 @@ The folder `frontend/src/app/event` contains the implementation for viewing even
 ## Creating Events
 
 ### Backend logic
+
+#### API
+`backend/api/event.py` creates the API routes and method `create_event()` to create a new event and add to the existing event databse while checking if the user is an Eli Exec. 
+
+#### Services
+`backend/services/event.py` creates the Event Service and has method `create_event()` that calls SQL query to create a new Event Entity then adds it to the session and returns the equivalent Event Model. This only happens if the user is an Eli Exec. 
 
 ### Frontend
 The folder `frontend/src/app/event-reg` contains the implementation for creating events.
