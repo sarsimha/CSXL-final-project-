@@ -77,8 +77,14 @@ def setup_teardown(test_session: Session):
     
 
 @pytest.fixture()
-def event(test_session: Session):
-    return EventService(test_session)
+def permission(test_session: Session):
+    return PermissionService(test_session)
+
+
+@pytest.fixture()
+def event(test_session: Session, permission: PermissionService):
+    # add permission to event
+    return EventService(test_session, permission)
 
 
 def test_get_all_event(event: EventService):
@@ -115,7 +121,9 @@ def test_create_event_position(event: EventService):
     event.create_event(None, new_event)
     assert event.all()[3].name == "Resume and Snacks"
 
-def test_executive_only_create_event(event: EventService):
+def test_executive_can_create_event(event: EventService):
+    """ Check executive able to create one event """
+
     newEvent = Event(
         name="Test event",
         orgName="Test org",
@@ -124,19 +132,24 @@ def test_executive_only_create_event(event: EventService):
         date="11/11/1111",
         time="11:59PM"
     )
-    newEvent_1 = Event(
-        name="Test event1",
-        orgName="Test org1",
-        location="Test location1",
-        description="Test decription1",
+
+    event.create_event(executive, newEvent)
+    assert len(event.all()) == 4
+
+def test_ambassador_cannot_create_event(event: EventService):
+    """ Check ambassador, without create_event permission, not able to create one event """
+
+    newEvent = Event(
+        name="Test event",
+        orgName="Test org",
+        location="Test location",
+        description="Test decription",
         date="11/11/1111",
         time="11:59PM"
     )
-    event.create_event(executive, newEvent)
-    assert len(event.all()) == 5
     
     try:
-        event.create_event(ambassador, newEvent_1)
+        event.create_event(ambassador, newEvent)
         assert False
     except UserPermissionError:
         assert True
