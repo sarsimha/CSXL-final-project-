@@ -31,7 +31,7 @@ export class EventService {
       shareReplay(1)
     );
   }
-
+  
   // Returns all events from database
   getAllEvents(): Observable<Event[]> {
     return this.http.get<Event[]>('/api/event')

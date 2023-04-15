@@ -2,14 +2,16 @@ from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 from ..database import db_session
-from ..models import Event
+from ..models import Event, User
 from ..entities import EventEntity
+from .permission import PermissionService
 
 class EventService:
     _session: Session
 
-    def __init__(self, session: Session = Depends(db_session)):
+    def __init__(self, session: Session = Depends(db_session), permission: PermissionService = Depends()):
         self._session = session
+        self._permission = permission
 
     # Pull all events that exists in the event database
     def all(self) -> list[Event] | None:
@@ -21,8 +23,11 @@ class EventService:
             return [entity.to_model() for entity in event_entities]
         
     # Create new event
-    def create_event(self, event: Event) -> Event:
+    def create_event(self, subject: User | None, event: Event) -> Event:
         #TODO: Add check for permissions (permission to access page + permission to submit)
+        if subject:
+            self._permission.enforce(subject, 'event.create_event', 'event/create/')
+
         entity = EventEntity.from_model(event)
         self._session.add(entity)
         self._session.commit()
