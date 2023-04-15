@@ -1,5 +1,4 @@
-
-"""Sample Organization models to use in the development environment."""
+"""Sample Event models to use in the development environment."""
 
 from ...models import Event
 from . import organizations
@@ -24,8 +23,8 @@ models = [
 ]
 
 #Will be used in the next sprint to connect the organization with event 
-pairs = [
-    (organizations.pearl_hacks, tie_dye_social),
-    (organizations.app_team, networking_csxl),
-    (organizations.black_technology, bofa_panel)
-]
+# pairs = [
+#     (organizations.pearl_hacks, tie_dye_social),
+#     (organizations.app_team, networking_csxl),
+#     (organizations.black_technology, bofa_panel)
+# ]

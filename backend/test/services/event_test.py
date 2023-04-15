@@ -92,7 +92,7 @@ def test_get_all_event(event: EventService):
     assert len(event.all()) == 3
     
 def test_create_event_added(event: EventService):
-    """ Create one event, check added to event database """
+    """ Not checking permissions. Create one event, check added to event database """
 
     new_event = Event(
         name="Resume and Snacks",
@@ -107,7 +107,7 @@ def test_create_event_added(event: EventService):
     assert len(event.all()) == 4
 
 def test_create_event_position(event: EventService):
-    """ Create one event, check position added to database """
+    """ Not checking permissions. Create one event, check position added to database """
 
     new_event = Event(
         name="Resume and Snacks",
