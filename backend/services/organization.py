@@ -13,8 +13,11 @@ class OrganizationService:
     def __init__(self, session: Session = Depends(db_session)):
         self._session = session
 
-    # Pull data from organization database
     def all(self) -> list[Organization] | None:
+        """List Organizations from database.
+
+        Returns:
+            list[Organization] | None: The list of organizations or None if not found."""
         query = select(OrganizationEntity)
         org_entities: list[OrganizationEntity] = self._session.scalars(query).all()
         if org_entities is None:

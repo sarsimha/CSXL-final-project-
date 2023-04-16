@@ -13,8 +13,11 @@ class EventService:
         self._session = session
         self._permission = permission
 
-    # Pull all events that exists in the event database
     def all(self) -> list[Event] | None:
+        """List Events from database.
+
+        Returns:
+            list[Event] | None: The list of events or None if not found."""
         query = select(EventEntity)
         event_entities: list[EventEntity] = self._session.scalars(query).all()
         if event_entities is None:
@@ -22,9 +25,20 @@ class EventService:
         else:
             return [entity.to_model() for entity in event_entities]
         
-    # Create new event
     def create_event(self, subject: User | None, event: Event) -> Event:
-        #TODO: Add check for permissions (permission to access page + permission to submit)
+        """Create new event.
+
+        The subject must have the 'event.create_event' permission on the 'event/create/' resource.
+
+        Args:
+            subject: The user performing the action (or None for just pytest).
+            event: The event to create from api.
+
+        Returns:
+            Event: The created event from the database.
+
+        Raises:
+            PermissionError: If the subject does not have the required permission."""
         if subject:
             self._permission.enforce(subject, 'event.create_event', 'event/create/')
 

@@ -9,6 +9,7 @@ api = APIRouter(prefix="/api/event")
 # View all events in database
 @api.get("", response_model=list[Event], tags=['Event'])
 def get_events(eventService: EventService = Depends()) -> list[Event]:
+    """Get list of all events."""
     return eventService.all()
 
 # Create new event
@@ -18,6 +19,7 @@ async def create_event(
     subject: User = Depends(registered_user),
     eventService: EventService = Depends()
 ):
+    """If registered user has permission, create new event and add to database. If not, raise UserPermissionError."""
     try:
         #TODO: check if event already exists or not
         # Use form data to create new event

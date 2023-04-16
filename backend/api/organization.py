@@ -7,4 +7,5 @@ api = APIRouter(prefix="/api/organization")
 
 @api.get("", response_model=list[Organization], tags=['Organization'])
 def get_orgs(org_svc: OrganizationService = Depends()) -> list[Organization]:
+    """Get list of all organizations."""
     return org_svc.all()
