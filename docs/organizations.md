@@ -61,7 +61,7 @@ The folder `frontend/src/app/event` contains the implementation for viewing even
 In order to ensure that only Organization Executives are able to create a new event into the database, we created a new 'Eli Executive' user in `backend/script/dev_data/users.py` with a role defined in `backend/script/dev_data/roles.py` as an 'Organization Executive', binded as a pair in `backend/script/dev_data/user_roles.py`. We add a permission to create an event in `backend/script/dev_data/permissions.py` for the organization executive role. 
 
 #### API
-`backend/api/event.py` creates the API routes and method `create_event()` to create a new event and add to the existing event databse while checking if the user is an Eli Exec. 
+`backend/api/event.py` creates the API routes and method `create_event()` to create a new event and add to the existing event database while checking if the user is an Eli Exec. 
 
 #### Services
 `backend/services/event.py` creates the Event Service and has method `create_event()` that calls SQL query to create a new Event Entity then adds it to the session and returns the equivalent Event Model. This only happens if the user is an Eli Exec. 
