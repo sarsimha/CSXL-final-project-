@@ -24,8 +24,6 @@ We have created the following data models:
 - Organization: a model for Student Organization that has the id, name, and description. 
 - Event: a model for an Event created by a Student Organization that has the event name, description, organization, location, date, and time.
 
-*TODO: Add all data models created in the final project, update as needed*
-
 ## Viewing Student Organizations
 
 ### Backend Logic
@@ -38,7 +36,6 @@ For development purposes, we created three dummy organization objects, `pearl_ha
 `backend/services/organization.py` creates the Organization Service that has method `all()` that calls SQL query to parse all Organization Entities in the list that returns the equivalent Organization Models. 
 
 ### Frontend
-*TODO: Documentation on frontend implementation for viewing orgs*
 The folder `frontend/src/app/organizations` contains the implementation for viewing organizations.
 `organizations.service.ts` creates the Organizations Service that has a method `getAllOrganizations()` that makes an HTTP GET request to return the list of organizations.
 
@@ -60,6 +57,8 @@ The folder `frontend/src/app/event` contains the implementation for viewing even
 ## Creating Events
 
 ### Backend logic
+
+In order to ensure that only Organization Executives are able to create a new event into the database, we created a new 'Eli Executive' user in `backend/script/dev_data/users.py` with a role defined in `backend/script/dev_data/roles.py` as an 'Organization Executive', binded as a pair in `backend/script/dev_data/user_roles.py`. We add a permission to create an event in `backend/script/dev_data/permissions.py` for the organization executive role. 
 
 #### API
 `backend/api/event.py` creates the API routes and method `create_event()` to create a new event and add to the existing event databse while checking if the user is an Eli Exec. 
