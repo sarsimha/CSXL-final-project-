@@ -1,0 +1,14 @@
+.mat-column-event {
+    width: 15%;
+    text-align: left;
+}
+
+.mat-column-description {
+    width: 45%;
+    text-align: left;
+}
+
+.mat-column-location, .mat-column-org-name, .mat-column-date, .mat-column-time {
+    width: 10%;
+    text-align: left;
+}

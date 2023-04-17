@@ -10,7 +10,9 @@ import { AuthenticationService } from '../authentication.service';
 import { Router } from '@angular/router';
 import { Profile, ProfileService } from '../profile/profile.service';
 import { PermissionService } from '../permission.service';
-import { Organization, OrganizationsService } from '../organizations/organizations.service'
+import { Organization, OrganizationsService } from '../organizations/organizations.service';
+import { Event, EventService } from '../event/event.service';
+import { EventRegService } from '../event-reg/event-reg.service';
 
 @Component({
   selector: 'app-navigation',
@@ -27,7 +29,9 @@ export class NavigationComponent implements OnInit, OnDestroy {
   public profile$: Observable<Profile | undefined>;
   public checkinPermission$: Observable<boolean>;
   public adminPermission$: Observable<boolean>;
-  public organization$: Observable<Organization[]| undefined>;
+  public execPermission$: Observable<boolean>;
+  public organization$: Observable<Organization[] | undefined>;
+  public event$: Observable<Event[] | undefined>;
 
   constructor(
     public auth: AuthenticationService,
@@ -37,12 +41,16 @@ export class NavigationComponent implements OnInit, OnDestroy {
     private breakpointObserver: BreakpointObserver,
     protected navigationService: NavigationTitleService,
     protected errorDialog: MatDialog,
-    protected organizationService: OrganizationsService
+    protected organizationService: OrganizationsService,
+    protected eventService: EventService,
+    protected eventRegService: EventRegService
   ) {
     this.profile$ = profileService.profile$;
     this.checkinPermission$ = this.permission.check('checkin.create', 'checkin/');
     this.adminPermission$ = this.permission.check('admin.view', 'admin/')
+    this.execPermission$ = this.permission.check('event.create_event', 'event/create/')
     this.organization$ = organizationService.organization$
+    this.event$ = eventService.event$
   }
 
   ngOnInit(): void {

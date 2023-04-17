@@ -1,0 +1,33 @@
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+  <mat-card>
+      <mat-card-content>
+          <mat-form-field appearance="fill">
+              <mat-label>Event Name</mat-label>
+              <input matInput placeholder="Text" formControlName="name" name="name" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+              <mat-label>Organization Name</mat-label>
+              <input matInput placeholder="Text" formControlName="orgName" name="orgName" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+              <mat-label>Location</mat-label>
+              <input matInput placeholder="Text" formControlName="location" name="location" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+              <mat-label>Description</mat-label>
+              <input matInput placeholder="Text" formControlName="description" name="description" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+              <mat-label>Date</mat-label>
+              <input matInput placeholder="MM/DD/YYYY" formControlName="date" name="date" required>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+              <mat-label>Time</mat-label>
+              <input matInput placeholder="HH:mmXM" formControlName="time" name="time" required>
+          </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+          <button mat-raised-button type="submit" [disabled]="eventForm.invalid">SUBMIT</button>
+      </mat-card-actions>
+  </mat-card>
+</form>

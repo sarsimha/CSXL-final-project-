@@ -32,11 +32,11 @@ def setup_teardown(test_session: Session):
     
 
 @pytest.fixture()
-def permission(test_session: Session):
+def organization(test_session: Session):
     return OrganizationService(test_session)
 
 
-def test_get_all_org(permission: OrganizationService):
+def test_get_all_org(organization: OrganizationService):
     """ Retrieves all dummy data using Organization Service """
-    assert len(permission.all()) == 3
+    assert len(organization.all()) == 3
     
