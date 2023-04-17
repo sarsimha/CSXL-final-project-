@@ -1,3 +1,10 @@
+"""Event Service.
+
+The Event Service provides access to the Event model and its associated database operations such as creating an event
+and viewing all events.
+"""
+
+
 from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session

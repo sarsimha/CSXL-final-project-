@@ -1,3 +1,10 @@
+"""Organization Service.
+
+The Organization Service provides access to the Organization model and its associated database operations 
+such as viewing all organizations.
+"""
+
+
 from fastapi import Depends
 from sqlalchemy import select
 from sqlalchemy.orm import Session
