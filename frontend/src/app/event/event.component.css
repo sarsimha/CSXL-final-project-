@@ -8,7 +8,14 @@
     text-align: left;
 }
 
-.mat-column-location, .mat-column-org-name, .mat-column-date, .mat-column-time {
+.mat-column-location,
+.mat-column-org-name,
+.mat-column-date,
+.mat-column-time {
     width: 10%;
     text-align: left;
+}
+
+mat-form-field {
+    width: 400px;
 }

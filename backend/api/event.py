@@ -12,6 +12,17 @@ def get_events(eventService: EventService = Depends()) -> list[Event]:
     """Get list of all events."""
     return eventService.all()
 
+# View all events based on organization
+@api.get("/{org}", response_model=list[Event], tags=['Event'])
+def get_events_org(org: str, eventService: EventService = Depends()) -> list[Event]:
+    """Get list of all events based on organization."""
+    allEvents = eventService.all()
+    eventsOfOrg = []
+    for event in allEvents:
+        if event.orgName == org:
+            eventsOfOrg.append(event)
+    return eventsOfOrg
+
 # Create new event
 @api.post("/create", response_model=Event, tags=['Event'])
 async def create_event(

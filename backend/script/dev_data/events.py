@@ -7,7 +7,7 @@ tie_dye_social = Event(id=301, name='Tie Dye Social', orgName='Pearl Hacks', loc
                         description='Come meet other hackers and tie-dye a Pearl Hacks shirt in your favorite color.', 
                         date='04/12/2023', time='06:00PM')
 
-networking_csxl = Event(id=302, name='Networking with CSXL', orgName='App Team', location='fb023',
+networking_csxl = Event(id=302, name='Networking with CSXL', orgName='App Team Carolina', location='fb023',
                         description='Come meet the CSXL team.', 
                         date='04/13/2023', time='06:30PM')
 
