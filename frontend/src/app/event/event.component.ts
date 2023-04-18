@@ -33,7 +33,6 @@ export class EventComponent {
   constructor(route: ActivatedRoute, private eventService: EventService, private orgService: OrganizationsService) {
     this.allEvents$ = eventService.getAllEvents()
     this.organizations$ = orgService.getAllOrganizations()
-    
   }
 
   public searchOrganizations(org: string) {

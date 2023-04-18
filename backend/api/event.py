@@ -13,13 +13,13 @@ def get_events(eventService: EventService = Depends()) -> list[Event]:
     return eventService.all()
 
 # View all events based on organization
-@api.get("/{organization}", response_model=list[Event], tags=['Event'])
-def get_events_org(organization: str, eventService: EventService = Depends()) -> list[Event]:
+@api.get("/{org}", response_model=list[Event], tags=['Event'])
+def get_events_org(org: str, eventService: EventService = Depends()) -> list[Event]:
     """Get list of all events based on organization."""
     allEvents = eventService.all()
     eventsOfOrg = []
     for event in allEvents:
-        if event.orgName == organization:
+        if event.orgName == org:
             eventsOfOrg.append(event)
     return eventsOfOrg
 
