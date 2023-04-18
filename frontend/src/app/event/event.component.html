@@ -1,4 +1,17 @@
 <div class="container mat-elevation-z8">
+    <div fxLayout="row" fxLayoutAlign="space-around center">
+    
+        <mat-form-field>
+            <mat-label>Search by organization</mat-label>
+            <mat-select>
+                <mat-option *ngFor="let org of organizations$ | async" [value]="org.name"
+                    (click)="searchOrganizations(org.name)">{{org.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    
+    </div>
+
     <mat-table #table [dataSource]="allEvents$">
 
         <ng-container matColumnDef="event">
