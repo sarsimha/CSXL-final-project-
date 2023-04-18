@@ -4,6 +4,7 @@
         <mat-form-field>
             <mat-label>Search by organization</mat-label>
             <mat-select>
+                <mat-option (click)="getAllEvents()">All Events</mat-option>
                 <mat-option *ngFor="let org of organizations$ | async" [value]="org.name"
                     (click)="searchOrganizations(org.name)">{{org.name}}
                 </mat-option>

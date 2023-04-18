@@ -37,11 +37,16 @@ export class EventComponent {
   }
 
   public searchOrganizations(org: string) {
-
     this.eventService.searchEventByOrganization(org)
       .subscribe(data => {
         this.allEvents$ = of(data);
       });
   }
 
+  public getAllEvents() {
+    this.eventService.getAllEvents()
+      .subscribe(data => {
+        this.allEvents$ = of(data);
+      });
+  }
 }
