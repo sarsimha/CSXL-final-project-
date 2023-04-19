@@ -48,8 +48,28 @@ class EventService:
             PermissionError: If the subject does not have the required permission."""
         if subject:
             self._permission.enforce(subject, 'event.create_event', 'event/create/')
-
         entity = EventEntity.from_model(event)
         self._session.add(entity)
         self._session.commit()
         return entity.to_model()
+    
+    def delete_event(self, subject: User | None, eventId: int) -> bool:
+        """Delete event.
+
+        The subject must have the 'event.delete_event' permission on the 'event/delete/{eventId}' resource.
+
+        Args:
+            subject: The user performing the action (or None for just pytest).
+            eventId: The id of event to delete from api.
+
+        Returns:
+            bool: True if function completes.
+
+        Raises:
+            PermissionError: If the subject does not have the required permission."""
+        if subject:
+            self._permission.enforce(subject, 'event.delete_event', f'event/delete/{eventId}')
+        entity = self._session.get(EventEntity, eventId)
+        self._session.delete(entity)
+        self._session.commit()
+        return True

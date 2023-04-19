@@ -54,7 +54,7 @@ def setup_teardown(test_session: Session):
     executive_role_entity.users.append(executive_entity)
     test_session.add(executive_role_entity)
     executive_permission_entity = PermissionEntity(
-        action='event.create_event', resource='*', role=executive_role_entity)
+        action='event.*', resource='*', role=executive_role_entity)
     test_session.add(executive_permission_entity)
 
     # Bootstrap ambassador and role
@@ -150,6 +150,21 @@ def test_ambassador_cannot_create_event(event: EventService):
     
     try:
         event.create_event(ambassador, newEvent)
+        assert False
+    except UserPermissionError:
+        assert True
+
+def test_delete_event(event: EventService):
+    """ Check executive able to delete one event """
+
+    event.delete_event(executive, networking_csxl.id)
+    assert len(event.all()) == 2
+
+def test_ambassador_cannot_delete_event(event: EventService):
+    """ Check ambassador not able to delete one event """
+
+    try:
+        event.delete_event(ambassador, networking_csxl.id)
         assert False
     except UserPermissionError:
         assert True
