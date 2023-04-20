@@ -7,6 +7,7 @@ import { EventRegService, Event } from './event-reg.service';
 import { permissionGuard } from '../permission.guard';
 import { Organization, OrganizationsService } from '../organizations/organizations.service';
 
+
 @Component({
   selector: 'app-event-reg',
   templateUrl: './event-reg.component.html',
