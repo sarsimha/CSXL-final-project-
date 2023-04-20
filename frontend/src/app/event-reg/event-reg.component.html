@@ -7,7 +7,6 @@
           </mat-form-field>
           <mat-form-field appearance="fill">
               <mat-label>Organization Name</mat-label>
-              <!-- <input matInput placeholder="Text" formControlName="orgName" name="orgName" required> -->
               <mat-select formControlName="orgName" name="orgName" required>
                 <mat-option *ngFor="let org of organizations$ | async" [value]="org.name">
                  {{org.name}}
@@ -22,10 +21,6 @@
               <mat-label>Description</mat-label>
               <input matInput placeholder="Text" formControlName="description" name="description" required>
           </mat-form-field>
-          <!-- <mat-form-field appearance="fill">
-              <mat-label>Date</mat-label>
-              <input matInput placeholder="MM/DD/YYYY" formControlName="date" name="date" required>
-          </mat-form-field> -->
           <mat-form-field appearance="fill">
             <mat-label>Choose a date</mat-label>
             <input matInput [matDatepicker]="picker" formControlName="date" name="date" required>
@@ -33,10 +28,6 @@
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
           </mat-form-field>          
-          <!-- <mat-form-field appearance="fill">
-              <mat-label>Time</mat-label>
-              <input matInput placeholder="HH:mmXM" formControlName="time" name="time" required>
-          </mat-form-field> -->
           <mat-form-field appearance="outline">
             <mat-label>Time</mat-label>
             <input type="time" matInput name="week" min="07:00" max="00:00" formControlName="time" name="time" required/>
