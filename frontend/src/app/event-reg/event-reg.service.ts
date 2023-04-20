@@ -70,7 +70,7 @@ export class EventRegService {
     }
 
     // display only the date portion
-    date = date.toString().substring(0,15)
+    date = date.toString().substring(4,15)
     
     let event: Event = {name, orgName, location, description, date, time};
 
