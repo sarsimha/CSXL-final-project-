@@ -73,3 +73,25 @@ class EventService:
         self._session.delete(entity)
         self._session.commit()
         return True
+    
+    def get_event(self, subject:User, id: int) -> Event | None:
+        if subject:
+            self._permission.enforce(subject, 'event.get_event', 'event/get/{id}/')
+
+        query = select(EventEntity).where(EventEntity.id == id)
+        event_entity: EventEntity = self._session.scalar(query)
+        if event_entity is None:
+            return None
+        else:
+            model = event_entity.to_model()
+            # model.permissions= self._permission.get_permissions(model) 
+            return model
+
+    def update_event(self, subject:User, event: Event) -> Event:
+        if subject:
+            self._permission.enforce(subject, 'event.update_event', 'event/update/{id}/')
+
+        entity = self._session.get(EventEntity, event.id)
+        entity.update(event)
+        self._session.commit()
+        return entity.to_model() 
