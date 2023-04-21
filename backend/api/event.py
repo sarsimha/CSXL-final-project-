@@ -47,3 +47,15 @@ async def create_event(
         return newEvent
     except UserPermissionError as e:
         raise HTTPException(status_code=403, detail=str(e))
+    
+# Delete event
+@api.delete("/delete/{eventId}", response_model=Event, tags=['Event'])
+def delete_event(
+    eventId: int,
+    subject: User = Depends(registered_user),
+    eventService: EventService = Depends()
+) -> bool:
+    try:
+        return eventService.delete_event(subject, eventId)
+    except UserPermissionError as e:
+        raise HTTPException(status_code=403, detail=str(e))
