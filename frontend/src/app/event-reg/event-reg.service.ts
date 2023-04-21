@@ -39,7 +39,6 @@ export class EventRegService {
   createEvent(name: string, orgName: string, location: string, description: string, date: string, time: string): Observable<Event> {
     let errors: string[] = [];
 
-
     if (name === "") {
       errors.push(`Event Name required.`);
     }
