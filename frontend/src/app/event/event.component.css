@@ -8,11 +8,14 @@
     text-align: left;
 }
 
+.mat-column-org-name {
+    width: 13%;
+    text-align: left;
+}
 .mat-column-location,
-.mat-column-org-name,
 .mat-column-date,
 .mat-column-time {
-    width: 10%;
+    width: 9%;
     text-align: left;
 }
 

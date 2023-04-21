@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { isAuthenticated } from 'src/app/gate/gate.guard';
 import { EventRegService, Event } from './event-reg.service';
 import { permissionGuard } from '../permission.guard';
+import { Organization, OrganizationsService } from '../organizations/organizations.service';
+
 
 @Component({
   selector: 'app-event-reg',
@@ -19,12 +21,15 @@ export class EventRegComponent {
     // only eli exec (and root) able to access page, otherwise redirect
     canActivate: [permissionGuard('event.create_event', 'event/create/')]
   }
+  public organizations$: Observable<Organization[]>;
 
   constructor(
     private eventRegService: EventRegService,
     private formBuilder: FormBuilder,
+    private orgService: OrganizationsService,
     route: ActivatedRoute
   ) {
+    this.organizations$ = orgService.getAllOrganizations();
   }
 
   eventForm = this.formBuilder.group({

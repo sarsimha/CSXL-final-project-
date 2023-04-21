@@ -69,3 +69,7 @@ In order to ensure that only Organization Executives are able to create a new ev
 ### Frontend
 The folder `frontend/src/app/event-reg` contains the implementation for creating events.
 `event-reg.service.ts` creates the EventReg Service that has a method `createEvent(name: string, orgName: string, location: string, description: string, date: string, time: string)` that makes an HTTP POST request to create a new event. 
+
+Frontend dependencies:
+1. `npm install angular-mat-datepicker`
+2. `npm install --save ngx-material-timepicker`
