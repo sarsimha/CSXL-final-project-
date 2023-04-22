@@ -67,6 +67,8 @@ def delete_event(
 def get_event(id:int, subject: User= Depends(registered_user), eventService: EventService = Depends()):
     try:
         event = eventService.get_event(subject, id)
+        if event is None:
+            raise HTTPException(status_code=404, detail=str("Event doesn't exist"))
         return event
     except UserPermissionError as e:
         raise HTTPException(status_code=403, detail=str(e))
