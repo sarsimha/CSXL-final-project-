@@ -1,7 +1,7 @@
 import pytest
 
 from sqlalchemy.orm import Session
-from ...models import User, Role, Permission, Event
+from ...models import User, Role, Permission, Event, EventForm
 from ...entities import UserEntity, RoleEntity, PermissionEntity, EventEntity
 from ...services import PermissionService, EventService, UserPermissionError
 
@@ -165,6 +165,40 @@ def test_ambassador_cannot_delete_event(event: EventService):
 
     try:
         event.delete_event(ambassador, networking_csxl.id)
+        assert False
+    except UserPermissionError:
+        assert True
+
+def test_get_event(event: EventService):
+    """ Check executive able to get event by id """
+
+    event.get_event(executive, 301)
+    assert event.all()[0].id == 301
+
+def test_ambassador_cannot_get_event(event: EventService):
+    """ Check ambassador not able to get event """
+
+    try:
+        event.get_event(ambassador, 301)
+        assert False
+    except UserPermissionError:
+        assert True
+
+def test_update_event(event: EventService):
+    """ Check executive able to update an event"""
+    editEvent = Event(id=301, name='Tie Dye Social', orgName='Pearl Hacks', location='fb011',
+                        description='Come meet other hackers and tie-dye a Pearl Hacks shirt in your favorite color.', 
+                        date='04/12/2023', time='19:00')
+    event.update_event(executive, editEvent)
+    assert event.get_event(executive, 301) == editEvent
+
+def test_ambassador_cannot_update_event(event: EventService):
+    """ Check ambassador not able to edit/udpdate event """
+    editEvent = Event(id=301, name='Tie Dye Social', orgName='Pearl Hacks', location='fb011',
+                        description='Come meet other hackers and tie-dye a Pearl Hacks shirt in your favorite color.', 
+                        date='04/12/2023', time='19:00')
+    try:
+        event.update_event(ambassador, editEvent)
         assert False
     except UserPermissionError:
         assert True

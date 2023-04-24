@@ -22,3 +22,11 @@ class CreateEvent(BaseModel):
     description: str
     date: str
     time: str
+
+class EventForm(BaseModel):
+    name: str
+    orgName: str
+    location: str
+    description: str
+    date: str
+    time: str
