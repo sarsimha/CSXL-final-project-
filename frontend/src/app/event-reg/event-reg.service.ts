@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../authentication.service';
 import { mergeMap, Observable, of, shareReplay, throwError} from 'rxjs';
+import { DatePipe } from '@angular/common';
 
 export interface Event {
   name: string;
@@ -54,7 +55,8 @@ export class EventRegService {
       errors.push(`Description required.`)
     }
 
-    if (date === "") {
+    
+    if (date.toString() === 'Invalid Date') {
       errors.push(`Date required.`)
     }
 
@@ -66,6 +68,9 @@ export class EventRegService {
       return throwError(() => { return new Error(errors.join("\n")) });
     }
 
+    // display only the date portion
+    date = date.toString().substring(4,15)
+    
     let event: Event = {name, orgName, location, description, date, time};
 
     return this.http.post<Event>("/api/event/create", event)

@@ -27,6 +27,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 /* Application Specific */
 import { AppRoutingModule } from './app-routing.module';
@@ -50,7 +53,7 @@ import { EventRegComponent } from './event-reg/event-reg.component';
     ProfileEditorComponent,
     OrganizationsComponent,
     EventComponent,
-    EventRegComponent
+    EventRegComponent,
   ],
   imports: [
     BrowserModule,
@@ -76,6 +79,9 @@ import { EventRegComponent } from './event-reg/event-reg.component';
     MatSnackBarModule,
     MatTabsModule,
     MatToolbarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    NgxMaterialTimepickerModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
