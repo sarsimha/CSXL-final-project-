@@ -1,23 +1,34 @@
-.mat-column-event {
+/* .mat-column-event {
     width: 15%;
     text-align: left;
 }
 
 .mat-column-description {
-    width: 45%;
+    width: 35%;
     text-align: left;
 }
 
 .mat-column-org-name {
-    width: 13%;
+    width: 10%;
     text-align: left;
 }
+
 .mat-column-location,
 .mat-column-date,
-.mat-column-time {
-    width: 9%;
+.mat-column-time,
+.mat-column-delete {
+    width: 10%;
     text-align: left;
-}
+} */
+
+/* .table {
+    width: 100%;
+} */
+
+/* .html, 
+.body {
+    height: 100%;
+  }   */
 
 mat-form-field {
     width: 400px;
