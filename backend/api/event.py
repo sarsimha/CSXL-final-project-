@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from ..services import EventService, UserPermissionError
-from ..models import Event, CreateEvent, User
+from ..models import Event, CreateEvent, User, EventForm
 from .authentication import registered_user
 
 api = APIRouter(prefix="/api/event")
@@ -57,5 +57,33 @@ def delete_event(
 ) -> bool:
     try:
         return eventService.delete_event(subject, eventId)
+    except UserPermissionError as e:
+        raise HTTPException(status_code=403, detail=str(e))
+
+#Get Event by ID
+@api.get("/get/{id}", response_model = Event, tags=['Event'])
+def get_event(id:int, subject: User= Depends(registered_user), eventService: EventService = Depends()):
+    try:
+        event = eventService.get_event(subject, id)
+        if event is None:
+            raise HTTPException(status_code=404, detail=str("Event doesn't exist"))
+        return event
+    except UserPermissionError as e:
+        raise HTTPException(status_code=403, detail=str(e))
+
+@api.put("/update/{id}", response_model = Event, tags=['Event'])
+def update_event(id:int, eventForm: EventForm, subject: User= Depends(registered_user), eventService:EventService = Depends()):
+    try:
+        event = eventService.get_event(subject, id)
+        if event is None:
+            raise HTTPException(status_code=404, detail=str("Event doesn't exist"))
+        event.name = eventForm.name
+        event.orgName = eventForm.orgName
+        event.location = eventForm.location
+        event.description = eventForm.description
+        event.date = eventForm.date
+        event.time = eventForm.time
+        event = eventService.update_event(subject, event)
+        return event
     except UserPermissionError as e:
         raise HTTPException(status_code=403, detail=str(e))

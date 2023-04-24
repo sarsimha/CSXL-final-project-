@@ -43,3 +43,10 @@ class EventEntity(EntityBase):
             time = self.time
         )
 
+    def update(self, model: Event) -> None:
+        self.name = model.name
+        self.orgName = model.orgName
+        self.location = model.location
+        self.description = model.description
+        self.date = model.date
+        self.time = model.time
