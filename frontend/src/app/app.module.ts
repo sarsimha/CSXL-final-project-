@@ -42,6 +42,7 @@ import { ProfileEditorComponent } from './profile/profile-editor/profile-editor.
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { EventComponent } from './event/event.component';
 import { EventRegComponent } from './event-reg/event-reg.component';
+import { ConfirmDeleteComponent } from './event/confirm-delete/confirm-delete.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ import { EventRegComponent } from './event-reg/event-reg.component';
     OrganizationsComponent,
     EventComponent,
     EventRegComponent,
+    ConfirmDeleteComponent,
   ],
   imports: [
     BrowserModule,

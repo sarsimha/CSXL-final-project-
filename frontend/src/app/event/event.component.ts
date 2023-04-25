@@ -1,12 +1,12 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { ActivatedRoute, Route } from '@angular/router';
-import { Observable, of } from 'rxjs';
+import { Observable, of, map, switchMap } from 'rxjs';
 import { isAuthenticated } from 'src/app/gate/gate.guard';
 import { Event, EventService } from './event.service';
 import { Organization, OrganizationsService } from '../organizations/organizations.service';
 import { PermissionService } from '../permission.service';
+import { ConfirmDeleteService } from './confirm-delete/confirm-delete.service';
 import { FormControl } from '@angular/forms';
-import { MatPaginator } from '@angular/material/paginator';
 
 
 @Component({
@@ -36,7 +36,8 @@ export class EventComponent {
     route: ActivatedRoute, 
     private eventService: EventService, 
     private orgService: OrganizationsService,
-    private permission: PermissionService
+    private permission: PermissionService,
+    private confirmDelete: ConfirmDeleteService
     ) {
     this.allEvents$ = eventService.getAllEvents()
     this.organizations$ = orgService.getAllOrganizations()
@@ -63,13 +64,33 @@ export class EventComponent {
       });
   }
 
-  public deleteEvent(eventId: number) {
+  public deleteEvent(eventId: number, eventName: string) {
     //add pop-up check to confirm event deletion
-    this.eventService.deleteEvent(eventId)
-      .subscribe(() => {
-        this.allEvents$ = this.eventService.getAllEvents();
-      });
-    //reload so user doesn't face "500 internal service error" pop-up
-    window.location.reload()
+    this.confirmDelete.confirm(
+      `Delete ${eventName}.`, 
+      `This action is final.`).pipe(
+        switchMap(res => {
+          if (res === true) {
+            return this.eventService.deleteEvent(eventId);
+          }
+          else {
+            //idk what else to put
+            return this.eventService.getAllEvents();
+          }
+        })).subscribe(() => {
+            //reload so user doesn't face "500 internal service error" pop-up
+            window.location.reload()
+            this.allEvents$ = this.eventService.getAllEvents();
+          });
+    
+    // simple implementation
+    // if(confirm(`Are you sure you want to delete ${eventName}?`)) {
+    //   this.eventService.deleteEvent(eventId)
+    //     .subscribe(() => {
+    //       this.allEvents$ = this.eventService.getAllEvents();
+    //     });
+    //   //reload so user doesn't face "500 internal service error" pop-up
+    //   window.location.reload()
+    // }
   }
 }
