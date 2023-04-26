@@ -68,29 +68,19 @@ export class EventComponent {
     //add pop-up check to confirm event deletion
     this.confirmDelete.confirm(
       `Delete ${eventName}.`, 
-      `This action is final.`).pipe(
-        switchMap(res => {
-          if (res === true) {
-            return this.eventService.deleteEvent(eventId);
-          }
-          else {
-            //idk what else to put
-            return this.eventService.getAllEvents();
-          }
-        })).subscribe(() => {
-            //reload so user doesn't face "500 internal service error" pop-up
-            window.location.reload()
-            this.allEvents$ = this.eventService.getAllEvents();
-          });
-    
-    // simple implementation
-    // if(confirm(`Are you sure you want to delete ${eventName}?`)) {
-    //   this.eventService.deleteEvent(eventId)
-    //     .subscribe(() => {
-    //       this.allEvents$ = this.eventService.getAllEvents();
-    //     });
-    //   //reload so user doesn't face "500 internal service error" pop-up
-    //   window.location.reload()
-    // }
+      `This action is final.`)
+      .pipe(switchMap(outcome => {
+        if (outcome === true) {
+          //reload so user doesn't face "500 internal service error" pop-up
+          window.location.reload()
+          //delete event
+          return this.eventService.deleteEvent(eventId);
+        }
+        else {
+          return this.eventService.getAllEvents();
+        }
+      })).subscribe(() => {
+          this.allEvents$ = this.eventService.getAllEvents();
+        });
   }
 }
