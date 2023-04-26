@@ -39,7 +39,7 @@ export class EventService {
     return this.http.get<Event[]>('/api/event')
   }
 
-  // Returns list of organizations associated with organization of interest
+  // Returns list of events with a given organization name
   searchEventByOrganization(org: string): Observable<Event[]> {
     return this.http.get<Event[]>(`/api/event/${org}`).pipe(
       map(data => {
