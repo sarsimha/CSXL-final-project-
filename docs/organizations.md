@@ -1,6 +1,6 @@
 # Student Organizations Feature
 
-Authors: Cecilia Lee, Kelly Fan, Sarika Simha, Sonika Puvvada
+Authors: [Cecilia Lee](https://github.com/ceciliallee), [Kelly Fan](https://github.com/krenfan), [Sarika Simha](https://github.com/sarsimha), [Sonika Puvvada](https://github.com/sonikacp)
 
 ## Table of Contents
 
@@ -9,6 +9,7 @@ Authors: Cecilia Lee, Kelly Fan, Sarika Simha, Sonika Puvvada
 * [Viewing Student Organizations](#viewing-student-organizations)
 * [Viewing Events](#viewing-events)
 * [Creating Events](#creating-events)
+* [Frontend Dependencies](#frontend-dependencies)
 
 ## Purpose of Feature
 
@@ -54,6 +55,13 @@ For development purposes, we created dummy event objects that are initalized onc
 The folder `frontend/src/app/event` contains the implementation for viewing events.
 `event.service.ts` creates the Events Service that has a method `getAllEvents()` that makes an HTTP GET request to return the list of events.
 
+### Filtering by event
+Users are able to view events based on organization of interest. In `backend/api/event.py`, there is an API method called `get_events_org` where we can pass in the organization name as a string, and that function searches for the events where their organization name field matches the input, and returns that new list of events. The frontend event component in `event.service.ts` utilizes this method to refresh the current observable list of events that will be displayed.
+
+The drop down on the top left corner of the page allows for users to choose an organization. Below shows of the filter being selected to Pearl Hacks and only showing events that are hosted by Pearl Hacks.
+
+![](img/filter-by-org.png)
+
 ## Creating Events
 
 ### Backend logic
@@ -70,6 +78,6 @@ In order to ensure that only Organization Executives are able to create a new ev
 The folder `frontend/src/app/event-reg` contains the implementation for creating events.
 `event-reg.service.ts` creates the EventReg Service that has a method `createEvent(name: string, orgName: string, location: string, description: string, date: string, time: string)` that makes an HTTP POST request to create a new event. 
 
-Frontend dependencies:
+## Frontend dependencies:
 1. `npm install angular-mat-datepicker`
 2. `npm install --save ngx-material-timepicker`
