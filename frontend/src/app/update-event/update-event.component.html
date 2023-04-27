@@ -3,7 +3,7 @@
         <mat-card-content>
             <mat-form-field appearance="fill">
                 <mat-label>Event Name</mat-label>
-                <mat-select formControlName="eventName" name="eventName" required>
+                <mat-select formControlName="name" name="name" required>
                   <mat-option *ngFor="let event of events$ | async" [value]="event.name">
                    {{event.name}}
                   </mat-option>
