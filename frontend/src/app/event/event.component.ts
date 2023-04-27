@@ -73,11 +73,11 @@ export class EventComponent {
     window.location.reload()
   }
 
-  public updateEvent(eventId: number, event: Event) {
-    this.eventService.updateEvent(eventId, event)
-      .subscribe(() => {
-        this.allEvents$ = this.eventService.getAllEvents();
-      });
-    window.location.reload()
-  }
+  // public updateEvent(eventId: number, event: Event) {
+  //   this.eventService.updateEvent(eventId, event)
+  //     .subscribe(() => {
+  //       this.allEvents$ = this.eventService.getAllEvents();
+  //     });
+  //   window.location.reload()
+  // }
 }

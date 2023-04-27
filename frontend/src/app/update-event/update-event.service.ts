@@ -2,8 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../authentication.service';
 import { mergeMap, Observable, of, shareReplay, throwError} from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 export interface Event {
+  // id?: number
   name: string;
   orgName: string;
   location: string;
@@ -35,7 +37,19 @@ export class UpdateEventService {
     return this.http.get<Event[]>("/api/event");
   }
 
-  updateEvent(name: string, orgName: string, location: string, description: string, date: string, time: string): Observable<Event> {
+  searchEventByName(event: string): Observable<Event[]> {
+    return this.http.get<Event[]>(`/api/event/${event}`).pipe(
+      map(data => {
+        return data;
+      }),
+      catchError((error: any) => {
+        console.error(error);
+        return of();
+      }),
+    );
+  }
+
+  updateEvent(eventId: number, name: string, orgName: string, location: string, description: string, date: string, time: string): Observable<Event> {
     let errors: string[] = [];
 
     if (name === "") {
@@ -72,6 +86,9 @@ export class UpdateEventService {
     
     let event: Event = {name, orgName, location, description, date, time};
 
-    return this.http.put<Event>("/api/event/update", event)
+    // this.http.delete<Event>("/api/event/delete")
+    // return this.http.put<Event>("/api/event/update", event)
+    return this.http.put<Event>(`/api/event/update/${eventId}`, event);
+    // return this.http.post<Event>("/api/event/create", event)
   }
 }
