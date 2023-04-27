@@ -72,12 +72,4 @@ export class EventComponent {
     //reload so user doesn't face "500 internal service error" pop-up
     window.location.reload()
   }
-
-  // public updateEvent(eventId: number, event: Event) {
-  //   this.eventService.updateEvent(eventId, event)
-  //     .subscribe(() => {
-  //       this.allEvents$ = this.eventService.getAllEvents();
-  //     });
-  //   window.location.reload()
-  // }
 }

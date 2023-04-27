@@ -37,24 +37,6 @@ export class UpdateEventService {
     return this.http.get<Event[]>("/api/event");
   }
 
-  // searchEventByName(event: string): Observable<Event[]> {
-  //   return this.http.get<Event[]>(`/api/event/${event}`).pipe(
-  //     map(data => {
-  //       return data;
-  //     }),
-  //     catchError((error: any) => {
-  //       console.error(error);
-  //       return of();
-  //     }),
-  //   );
-  // }
-
-  // getEventId(event: string): number {
-  //   let events_list$ = this.getEvents()
-  //   // return events_list$.pipe(map(events_list$ => events_list$.filter(x => x.event === event)));
-  //   // return events_list$.filter(x=> x.event === event);
-  // }
-
   updateEvent(eventId: number, name: string, orgName: string, location: string, description: string, date: string, time: string): Observable<Event> {
     let errors: string[] = [];
 
@@ -92,9 +74,6 @@ export class UpdateEventService {
     
     let event: Event = {name, orgName, location, description, date, time};
 
-    // this.http.delete<Event>("/api/event/delete")
-    // return this.http.put<Event>("/api/event/update", event)
     return this.http.put<Event>(`/api/event/update/${eventId}`, event);
-    // return this.http.post<Event>("/api/event/create", event)
   }
 }
