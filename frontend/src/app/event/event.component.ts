@@ -25,6 +25,7 @@ export class EventComponent {
   }
   
   public allEvents$: Observable<Event[]>
+  public orderedEvents$: Observable<Event[]>
 
   // For the filter by organization drop down
   public organizations$: Observable<Organization[]>;
@@ -40,6 +41,8 @@ export class EventComponent {
     private confirmDelete: ConfirmDeleteService
     ) {
     this.allEvents$ = eventService.getAllEvents()
+    this.orderedEvents$ = eventService.getAllEvents()
+    this.orderEvents()
     this.organizations$ = orgService.getAllOrganizations()
     this.execPermission$ = this.permission.check('event.delete_event', 'event/delete/')
 
@@ -82,5 +85,21 @@ export class EventComponent {
       })).subscribe(() => {
           this.allEvents$ = this.eventService.getAllEvents();
         });
+  }
+
+  public orderEvents() {
+    this.orderedEvents$
+      .subscribe((list) =>
+        list.sort((a, b) =>
+          new Date(a.date).setHours(0,0,0,0) < new Date(b.date).setHours(0,0,0,0) ? -1 :
+          new Date(a.date).setHours(0,0,0,0) > new Date(b.date).setHours(0,0,0,0) ? 1 :
+          0
+      ));
+    
+      this.orderedEvents$
+      .subscribe((list) =>
+        list.forEach((event) => {
+          console.log(event.date)
+        }));
   }
 }
