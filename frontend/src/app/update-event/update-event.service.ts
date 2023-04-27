@@ -5,7 +5,7 @@ import { mergeMap, Observable, of, shareReplay, throwError} from 'rxjs';
 import { catchError, map, find, filter } from 'rxjs/operators';
 
 export interface Event {
-  // id?: number
+  id?: number;
   name: string;
   orgName: string;
   location: string;
