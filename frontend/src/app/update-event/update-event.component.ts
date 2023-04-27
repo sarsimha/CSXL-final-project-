@@ -24,6 +24,8 @@ export class UpdateEventComponent {
   public organizations$: Observable<Organization[]>;
   public events$: Observable<Event[]>;
 
+//   create dict with name and id
+
   constructor(
     private updateEventService: UpdateEventService,
     private formBuilder: FormBuilder,
@@ -53,9 +55,10 @@ export class UpdateEventComponent {
     let date = form.date ?? "";
     let time = form.time ?? "";
     // let eventId: number = this.updateEventService.searchEventByName(name);
+    // take name as key and access id
 
     this.updateEventService
-      .updateEvent(name, orgName, location, description, date, time)
+      .updateEvent(eventId, name, orgName, location, description, date, time)
       .subscribe({
         next: (event) => this.onSuccess(event),
         error: (err) => this.onError(err)
