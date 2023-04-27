@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../authentication.service';
 import { mergeMap, Observable, of, shareReplay, throwError} from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, find, filter } from 'rxjs/operators';
 
 export interface Event {
   // id?: number
@@ -47,6 +47,12 @@ export class UpdateEventService {
         return of();
       }),
     );
+  }
+
+  getEventId(event: string): number {
+    let events_list$ = this.getEvents()
+    return events_list$.pipe(map(events_list$ => events_list$.filter(x => x.event === event)));
+    // return events_list$.filter(x=> x.event === event);
   }
 
   updateEvent(eventId: number, name: string, orgName: string, location: string, description: string, date: string, time: string): Observable<Event> {

@@ -52,10 +52,10 @@ export class UpdateEventComponent {
     let description = form.description ?? "";
     let date = form.date ?? "";
     let time = form.time ?? "";
-    let eventId: number = this.updateEventService.searchEventByName(name);
+    // let eventId: number = this.updateEventService.searchEventByName(name);
 
     this.updateEventService
-      .updateEvent(eventId, name, orgName, location, description, date, time)
+      .updateEvent(name, orgName, location, description, date, time)
       .subscribe({
         next: (event) => this.onSuccess(event),
         error: (err) => this.onError(err)
