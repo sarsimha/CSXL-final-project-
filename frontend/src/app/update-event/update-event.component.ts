@@ -24,42 +24,18 @@ export class UpdateEventComponent {
   }
   public organizations$: Observable<Organization[]>;
   public events$: Observable<Event[]>;
+  public events_dict: {[name: string] : number | undefined} = {}
 
 
-//   create dict with name and id
-    public getEventsDict() {
-        let events_dict: {[name: string] : number | undefined} = {}
-        // this.eventService.getAllEvents()
-        this.events$
-        .subscribe(data => {
-            data.forEach((x) => {
-                // console.log("name:" + x.name)
-                // console.log("id:" + x.id)
-                events_dict[x.name] = x.id
-            })
-        });
-        console.log("test"+events_dict['abc'])
-        return events_dict
+    //create dict with name and id
+    public getEventsDict(): void {
+      this.events$
+      .subscribe(data => {
+        data.forEach((x) => {
+        this.events_dict[x.name] = x.id
+      })
+      });
     }
-
-//   private list_to_dict(events: Observable<Event[]>) {
-//     const dict = {}
-//     events.forEach((element) => {
-//         const dictKey = idGen(element)
-//         dict[dictKey] = element
-//     })
-//     return dict
-//   }
-// export function listToDict(list, idGen) {
-//   const dict = {}
-
-//   list.forEach((element) => {
-//     const dictKey = idGen(element)
-//     dict[dictKey] = element
-//   })
-
-//   return dict
-// }
 
   constructor(
     private updateEventService: UpdateEventService,
@@ -70,6 +46,7 @@ export class UpdateEventComponent {
   ) {
     this.organizations$ = orgService.getAllOrganizations();
     this.events$ = eventService.getAllEvents();
+    this.getEventsDict()
   }
 
   updateEventForm = this.formBuilder.group({
@@ -89,10 +66,7 @@ export class UpdateEventComponent {
     let description = form.description ?? "";
     let date = form.date ?? "";
     let time = form.time ?? "";
-    let eventId = this.getEventsDict()[name]!
-    console.log('eventID:'+eventId)
-    // let eventId: number = this.updateEventService.searchEventByName(name);
-    // take name as key and access id
+    let eventId = this.events_dict[name]!
 
     this.updateEventService
       .updateEvent(eventId, name, orgName, location, description, date, time)
@@ -111,7 +85,6 @@ export class UpdateEventComponent {
 
   private onError(err: Error) {
     if (err.message) {
-    //   console.log()
       window.alert(err.message);
     } else {
       window.alert("Unknown error: " + JSON.stringify(err));
