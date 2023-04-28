@@ -33,10 +33,12 @@ export class UpdateEventService {
     );
   }
 
+  // get an observable event
   getEvents(): Observable<Event[]> {
     return this.http.get<Event[]>("/api/event");
   }
 
+  // this method takes resembles create event but allows exec to change details of their event
   updateEvent(eventId: number, name: string, orgName: string, location: string, description: string, date: string, time: string): Observable<Event> {
     let errors: string[] = [];
 
