@@ -9,6 +9,7 @@ Authors: [Cecilia Lee](https://github.com/ceciliallee), [Kelly Fan](https://gith
 * [Viewing Student Organizations](#viewing-student-organizations)
 * [Viewing Events](#viewing-events)
 * [Creating Events](#creating-events)
+* [Updating Events](#updating-events)
 * [Frontend Dependencies](#frontend-dependencies)
 
 ## Purpose of Feature
@@ -77,6 +78,21 @@ In order to ensure that only Organization Executives are able to create a new ev
 ### Frontend
 The folder `frontend/src/app/event-reg` contains the implementation for creating events.
 `event-reg.service.ts` creates the EventReg Service that has a method `createEvent(name: string, orgName: string, location: string, description: string, date: string, time: string)` that makes an HTTP POST request to create a new event. 
+
+## Updating Events
+
+### Backend logic
+
+In order to ensure that only Organization Executives are able to create a new event into the database, we created a new 'Eli Executive' user in `backend/script/dev_data/users.py` with a role defined in `backend/script/dev_data/roles.py` as an 'Organization Executive', binded as a pair in `backend/script/dev_data/user_roles.py`. We add a permission to update an event or get an event by ID in `backend/script/dev_data/permissions.py` for the organization executive role. 
+
+#### API
+`backend/api/event.py` creates the API routes and method `update_event()` to update an event by the ID and put it in the database. The method `get_event()` gets the event by the id and returns that specific event. Both methods check to see if the user is an Eli Exec. 
+
+#### Services
+`backend/services/event.py` creates the Event Service and has methods `get_event()` and `update_event()`. The method `get_event()` calls a SQL query to find the Event with a specific ID from the Events database and returns the equivalent Event Model. The method `update_event()` updates the event and returns the updated Event Model. Both methods only happen if the user is an Eli Exec. 
+
+### Frontend
+
 
 ## Frontend dependencies:
 1. `npm install angular-mat-datepicker`

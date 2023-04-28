@@ -75,6 +75,20 @@ class EventService:
         return True
     
     def get_event(self, subject:User, id: int) -> Event | None:
+        """Get event.
+
+        The subject must have the 'event.get_event' permission on the 'event/get/{eventId}' resource.
+
+        Args:
+            subject: The user performing the action (or None for just pytest).
+            eventId: The id of event to get from api.
+
+        Returns:
+            Event: The event fetched from the database.
+
+        Raises:
+            PermissionError: If the subject does not have the required permission.
+            404Error: If the event does not exist. """
         if subject:
             self._permission.enforce(subject, 'event.get_event', 'event/get/{id}/')
 
@@ -87,6 +101,21 @@ class EventService:
             return model
 
     def update_event(self, subject:User, event: Event) -> Event:
+        """Update event.
+
+        The subject must have the 'event.update_event' permission on the 'event/update/{eventId}' resource.
+
+        Args:
+            subject: The user performing the action (or None for just pytest).
+            eventId: The id of event to update event from api.
+
+        Returns:
+            Event: The updated event from the database.
+
+        Raises:
+            PermissionError: If the subject does not have the required permission.
+            404Error: If the event does not exist. """
+            
         if subject:
             self._permission.enforce(subject, 'event.update_event', 'event/update/{id}/')
 
