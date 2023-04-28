@@ -54,8 +54,4 @@ export class EventService {
   deleteEvent(eventId: number) {
     return this.http.delete(`/api/event/delete/${eventId}`);
   }
-
-  // updateEvent(eventId: number, event: Event) {
-  //   return this.http.put(`/api/event/update/${eventId}`, event);
-  // }
 }
