@@ -25,7 +25,7 @@ export class EventComponent {
   }
   
   public allEvents$: Observable<Event[]>
-  public orderedEvents$: Observable<Event[]>
+  public orderedEventsList: Event[] = []
 
   // For the filter by organization drop down
   public organizations$: Observable<Organization[]>;
@@ -41,8 +41,7 @@ export class EventComponent {
     private confirmDelete: ConfirmDeleteService
     ) {
     this.allEvents$ = eventService.getAllEvents()
-    this.orderedEvents$ = eventService.getAllEvents()
-    this.orderEvents()
+    this.allEvents$ = this.orderEvents()    
     this.organizations$ = orgService.getAllOrganizations()
     this.execPermission$ = this.permission.check('event.delete_event', 'event/delete/')
 
@@ -61,10 +60,13 @@ export class EventComponent {
   }
 
   public getAllEvents() {
-    this.eventService.getAllEvents()
-      .subscribe(data => {
-        this.allEvents$ = of(data);
-      });
+    this.allEvents$.subscribe((sortedList) => {
+      this.allEvents$ = of(sortedList);
+    });
+    // this.eventService.getAllEvents()
+    //   .subscribe(data => {
+    //     this.allEvents$ = of(data);
+    //   });
   }
 
   public deleteEvent(eventId: number, eventName: string) {
@@ -87,19 +89,43 @@ export class EventComponent {
         });
   }
 
-  public orderEvents() {
-    this.orderedEvents$
-      .subscribe((list) =>
-        list.sort((a, b) =>
-          new Date(a.date).setHours(0,0,0,0) < new Date(b.date).setHours(0,0,0,0) ? -1 :
-          new Date(a.date).setHours(0,0,0,0) > new Date(b.date).setHours(0,0,0,0) ? 1 :
-          0
-      ));
+  // public orderEvents() {
+  //   console.log("works")
+  //   this.orderedEvents$
+  //     .subscribe((list) =>
+  //       list.sort((a, b) =>
+  //         new Date(a.date).setHours(0,0,0,0) < new Date(b.date).setHours(0,0,0,0) ? -1 :
+  //         new Date(a.date).setHours(0,0,0,0) > new Date(b.date).setHours(0,0,0,0) ? 1 :
+  //         0
+
+  //         // new Date(a.date).setHours(0,0,0,0) - new Date(b.date).setHours(0,0,0,0)
+  //     ));
     
-      this.orderedEvents$
-      .subscribe((list) =>
-        list.forEach((event) => {
-          console.log(event.date)
-        }));
+  //     this.orderedEvents$
+  //     .subscribe((list) =>
+  //       list.forEach((event) => {
+  //         console.log(event.date)
+  //       }));
+  // }
+
+  // public orderEvents() {
+  //   this.orderedEvents$.subscribe((list) => {
+  //     list.sort((a, b) =>
+  //       new Date(a.date).setHours(0, 0, 0, 0) - new Date(b.date).setHours(0, 0, 0, 0)
+  //     );
+  //     //console.log(list);
+  //   });
+  // }
+
+  public orderEvents() {
+    return this.allEvents$.pipe(
+      map((list) => {
+        list.sort((a, b) =>
+          new Date(a.date).setHours(0, 0, 0, 0) - new Date(b.date).setHours(0, 0, 0, 0)
+        );
+        return list;
+      })
+    );
   }
+  
 }
