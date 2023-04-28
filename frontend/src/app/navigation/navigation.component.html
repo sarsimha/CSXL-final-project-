@@ -12,6 +12,7 @@
         <ng-template #authenticated mat-list-item>
           <a mat-list-item *ngIf="adminPermission$ | async" routerLink="/admin">Admin</a>
           <a mat-list-item *ngIf="execPermission$ | async" routerLink="/event_reg">Create Event</a>
+          <a mat-list-item *ngIf="execPermission$ | async" routerLink="/update_event">Update Event</a>
           <mat-divider></mat-divider>
           <a mat-list-item routerLink="/profile">Profile</a>
           <a mat-list-item routerLink="/organizations">Organizations</a>

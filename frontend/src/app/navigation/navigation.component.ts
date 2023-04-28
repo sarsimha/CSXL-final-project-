@@ -13,6 +13,7 @@ import { PermissionService } from '../permission.service';
 import { Organization, OrganizationsService } from '../organizations/organizations.service';
 import { Event, EventService } from '../event/event.service';
 import { EventRegService } from '../event-reg/event-reg.service';
+import { UpdateEventService } from '../update-event/update-event.service';
 
 @Component({
   selector: 'app-navigation',
@@ -43,7 +44,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
     protected errorDialog: MatDialog,
     protected organizationService: OrganizationsService,
     protected eventService: EventService,
-    protected eventRegService: EventRegService
+    protected eventRegService: EventRegService,
+    protected updateEventService: UpdateEventService
   ) {
     this.profile$ = profileService.profile$;
     this.checkinPermission$ = this.permission.check('checkin.create', 'checkin/');

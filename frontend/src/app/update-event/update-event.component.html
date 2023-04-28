@@ -1,0 +1,44 @@
+<form [formGroup]="updateEventForm" (ngSubmit)="onSubmit()">
+    <mat-card>
+        <mat-card-content>
+            <mat-form-field appearance="fill">
+                <mat-label>Event Name</mat-label>
+                <mat-select formControlName="name" name="name" required>
+                  <mat-option *ngFor="let event of events$ | async" [value]="event.name">
+                   {{event.name}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Organization Name</mat-label>
+                <mat-select formControlName="orgName" name="orgName" required>
+                  <mat-option *ngFor="let org of organizations$ | async" [value]="org.name">
+                   {{org.name}}
+                  </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Location</mat-label>
+                <input matInput placeholder="Text" formControlName="location" name="location" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Description</mat-label>
+                <input matInput placeholder="Text" formControlName="description" name="description" required>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+              <mat-label>Choose a date</mat-label>
+              <input matInput [matDatepicker]="picker" matInput placeholder="MM/DD/YYYY" formControlName="date" name="date" required>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>          
+            <mat-form-field appearance="outline">
+              <mat-label>Time</mat-label>
+              <input type="time" matInput name="week" min="07:00" max="00:00" formControlName="time" name="time" required/>
+            </mat-form-field>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button type="submit" [disabled]="updateEventForm.invalid">UPDATE</button>
+        </mat-card-actions>
+    </mat-card>
+  </form>
+  

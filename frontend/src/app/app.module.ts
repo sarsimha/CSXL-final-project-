@@ -44,6 +44,8 @@ import { EventComponent } from './event/event.component';
 import { EventRegComponent } from './event-reg/event-reg.component';
 import { ConfirmDeleteComponent } from './event/confirm-delete/confirm-delete.component';
 
+import { UpdateEventComponent } from './update-event/update-event.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +57,7 @@ import { ConfirmDeleteComponent } from './event/confirm-delete/confirm-delete.co
     OrganizationsComponent,
     EventComponent,
     EventRegComponent,
+    UpdateEventComponent,
     ConfirmDeleteComponent,
   ],
   imports: [
