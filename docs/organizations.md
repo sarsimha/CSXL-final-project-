@@ -92,7 +92,8 @@ In order to ensure that only Organization Executives are able to create a new ev
 `backend/services/event.py` creates the Event Service and has methods `get_event()` and `update_event()`. The method `get_event()` calls a SQL query to find the Event with a specific ID from the Events database and returns the equivalent Event Model. The method `update_event()` updates the event and returns the updated Event Model. Both methods only happen if the user is an Eli Exec. 
 
 ### Frontend
-
+The folder `frontend/src/app/update-event` contains the implementation for updating events.
+`update-event.service.ts` creates the UpdateEvent Service that has a method `updateEvent(eventId: number, name: string, orgName: string, location: string, description: string, date: string, time: string)` that makes an HTTP PUT request to update an existing event with new fields for orgName, location, description, date and time. The update events page can be accessed from the navigation bar for users with exec permissions.
 
 ## Frontend dependencies:
 1. `npm install angular-mat-datepicker`
