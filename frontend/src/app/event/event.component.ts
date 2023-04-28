@@ -53,20 +53,27 @@ export class EventComponent {
   }
 
   public searchOrganizations(org: string) {
+    // get events of an org that are ordered by date
     this.eventService.searchEventByOrganization(org)
       .subscribe(data => {
-        this.allEvents$ = of(data);
+        this.allEvents$ = of(
+          data.sort((a, b) =>
+          new Date(a.date).setHours(Number(a.time.slice(0,2)), Number(a.time.slice(3,5)), 0, 0) 
+          - new Date(b.date).setHours(Number(b.time.slice(0,2)), Number(b.time.slice(3,5)), 0, 0)
+        ));
       });
   }
 
   public getAllEvents() {
-    this.allEvents$.subscribe((sortedList) => {
-      this.allEvents$ = of(sortedList);
-    });
-    // this.eventService.getAllEvents()
-    //   .subscribe(data => {
-    //     this.allEvents$ = of(data);
-    //   });
+    // get all events ordered by date
+    this.eventService.getAllEvents()
+      .subscribe(data => {
+        this.allEvents$ = of(
+          data.sort((a, b) =>
+          new Date(a.date).setHours(Number(a.time.slice(0,2)), Number(a.time.slice(3,5)), 0, 0) 
+          - new Date(b.date).setHours(Number(b.time.slice(0,2)), Number(b.time.slice(3,5)), 0, 0)
+        ));
+      });
   }
 
   public deleteEvent(eventId: number, eventName: string) {
@@ -89,39 +96,13 @@ export class EventComponent {
         });
   }
 
-  // public orderEvents() {
-  //   console.log("works")
-  //   this.orderedEvents$
-  //     .subscribe((list) =>
-  //       list.sort((a, b) =>
-  //         new Date(a.date).setHours(0,0,0,0) < new Date(b.date).setHours(0,0,0,0) ? -1 :
-  //         new Date(a.date).setHours(0,0,0,0) > new Date(b.date).setHours(0,0,0,0) ? 1 :
-  //         0
-
-  //         // new Date(a.date).setHours(0,0,0,0) - new Date(b.date).setHours(0,0,0,0)
-  //     ));
-    
-  //     this.orderedEvents$
-  //     .subscribe((list) =>
-  //       list.forEach((event) => {
-  //         console.log(event.date)
-  //       }));
-  // }
-
-  // public orderEvents() {
-  //   this.orderedEvents$.subscribe((list) => {
-  //     list.sort((a, b) =>
-  //       new Date(a.date).setHours(0, 0, 0, 0) - new Date(b.date).setHours(0, 0, 0, 0)
-  //     );
-  //     //console.log(list);
-  //   });
-  // }
-
   public orderEvents() {
+    // order all events by date
     return this.allEvents$.pipe(
       map((list) => {
         list.sort((a, b) =>
-          new Date(a.date).setHours(0, 0, 0, 0) - new Date(b.date).setHours(0, 0, 0, 0)
+        new Date(a.date).setHours(Number(a.time.slice(0,2)), Number(a.time.slice(3,5)), 0, 0) 
+        - new Date(b.date).setHours(Number(b.time.slice(0,2)), Number(b.time.slice(3,5)), 0, 0)
         );
         return list;
       })
