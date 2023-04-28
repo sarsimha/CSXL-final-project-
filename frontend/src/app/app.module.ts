@@ -42,6 +42,7 @@ import { ProfileEditorComponent } from './profile/profile-editor/profile-editor.
 import { OrganizationsComponent } from './organizations/organizations.component';
 import { EventComponent } from './event/event.component';
 import { EventRegComponent } from './event-reg/event-reg.component';
+import { ConfirmDeleteComponent } from './event/confirm-delete/confirm-delete.component';
 
 import { UpdateEventComponent } from './update-event/update-event.component';
 
@@ -56,8 +57,8 @@ import { UpdateEventComponent } from './update-event/update-event.component';
     OrganizationsComponent,
     EventComponent,
     EventRegComponent,
-    
     UpdateEventComponent,
+    ConfirmDeleteComponent,
   ],
   imports: [
     BrowserModule,
