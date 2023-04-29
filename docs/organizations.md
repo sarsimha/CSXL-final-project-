@@ -10,6 +10,7 @@ Authors: [Cecilia Lee](https://github.com/ceciliallee), [Kelly Fan](https://gith
 * [Viewing Events](#viewing-events)
 * [Creating Events](#creating-events)
 * [Updating Events](#updating-events)
+* [Deleting Events](#deleting-events)
 * [Frontend Dependencies](#frontend-dependencies)
 
 ## Purpose of Feature
@@ -18,7 +19,10 @@ The student organizations achieve the following user stories:
 
 - As Sol Student, view a list of student organizations and their details
 - As Sol Student, view a list of events hosted by student organizations
+- As Sol Student, view a list of events for a select student organization
 - As Eli Exec, fill out a form to create an event hosted by their student organization
+- As Eli Exec, fill out a form to update an event
+- As Eli Exec, click a button to delete an event
 
 ## Data Models
 
@@ -98,10 +102,6 @@ In order to ensure that only Organization Executives are able to create a new ev
 The folder `frontend/src/app/update-event` contains the implementation for updating events.
 `update-event.service.ts` creates the UpdateEvent Service that has a method `updateEvent(eventId: number, name: string, orgName: string, location: string, description: string, date: string, time: string)` that makes an HTTP PUT request to update an existing event with new fields for orgName, location, description, date and time. The update events page can be accessed from the navigation bar for users with exec permissions.
 
-## Frontend dependencies:
-1. `npm install angular-mat-datepicker`
-2. `npm install --save ngx-material-timepicker`
-
 ## Deleting Events
 
 ### Backend Logic
@@ -121,3 +121,7 @@ The folder `frontend/src/app/event` contains the implementation for deleting eve
 
 The folder `frontend/src/app/event/confirm-delete` contains the implementation for confirmation pop-up of event deletion.
 `confirm-delete.service.ts` creates the ConfirmDelete Service that has a method `confirm(title: string, message: string)` that opens a dialog pop-up with specified title and message. It returns true for confirm or false for cancel once a button is clicked and the dialog is closed.
+
+## Frontend dependencies:
+1. `npm install angular-mat-datepicker`
+2. `npm install --save ngx-material-timepicker`
