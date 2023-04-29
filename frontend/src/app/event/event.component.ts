@@ -25,6 +25,7 @@ export class EventComponent {
   }
   
   public allEvents$: Observable<Event[]>
+  public orderedEventsList: Event[] = []
 
   // For the filter by organization drop down
   public organizations$: Observable<Organization[]>;
@@ -40,6 +41,7 @@ export class EventComponent {
     private confirmDelete: ConfirmDeleteService
     ) {
     this.allEvents$ = eventService.getAllEvents()
+    this.allEvents$ = this.orderEvents()    
     this.organizations$ = orgService.getAllOrganizations()
     this.execPermission$ = this.permission.check('event.delete_event', 'event/delete/')
 
@@ -51,16 +53,26 @@ export class EventComponent {
   }
 
   public searchOrganizations(org: string) {
+    // get events of an org that are ordered by date
     this.eventService.searchEventByOrganization(org)
       .subscribe(data => {
-        this.allEvents$ = of(data);
+        this.allEvents$ = of(
+          data.sort((a, b) =>
+          new Date(a.date).setHours(Number(a.time.slice(0,2)), Number(a.time.slice(3,5)), 0, 0) 
+          - new Date(b.date).setHours(Number(b.time.slice(0,2)), Number(b.time.slice(3,5)), 0, 0)
+        ));
       });
   }
 
   public getAllEvents() {
+    // get all events ordered by date
     this.eventService.getAllEvents()
       .subscribe(data => {
-        this.allEvents$ = of(data);
+        this.allEvents$ = of(
+          data.sort((a, b) =>
+          new Date(a.date).setHours(Number(a.time.slice(0,2)), Number(a.time.slice(3,5)), 0, 0) 
+          - new Date(b.date).setHours(Number(b.time.slice(0,2)), Number(b.time.slice(3,5)), 0, 0)
+        ));
       });
   }
 
@@ -83,4 +95,18 @@ export class EventComponent {
           this.allEvents$ = this.eventService.getAllEvents();
         });
   }
+
+  public orderEvents() {
+    // order all events by date
+    return this.allEvents$.pipe(
+      map((list) => {
+        list.sort((a, b) =>
+        new Date(a.date).setHours(Number(a.time.slice(0,2)), Number(a.time.slice(3,5)), 0, 0) 
+        - new Date(b.date).setHours(Number(b.time.slice(0,2)), Number(b.time.slice(3,5)), 0, 0)
+        );
+        return list;
+      })
+    );
+  }
+  
 }
