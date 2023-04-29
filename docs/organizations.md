@@ -63,6 +63,9 @@ The drop down on the top left corner of the page allows for users to choose an o
 
 ![](img/filter-by-org.png)
 
+### Order events by date and time
+Users are able to view events ordered from nearest to furtherest in time in the events page. In `event.component.ts`, there is a function `orderEvents()` that returns the Observable of Event list sorted by date and time. This is called in the constructor so the ordered list shows immediately on the page. The filtering functions `searchOrganizations(org: string)` and `getAllEvents` were modified so that the list of Events was also sorted by date and time.
+
 ## Creating Events
 
 ### Backend logic
@@ -98,3 +101,23 @@ The folder `frontend/src/app/update-event` contains the implementation for updat
 ## Frontend dependencies:
 1. `npm install angular-mat-datepicker`
 2. `npm install --save ngx-material-timepicker`
+
+## Deleting Events
+
+### Backend Logic
+
+In order to ensure that only Organization Executives are able to delete an event from the database, we restricted all event functions to 'Eli Executive' user in `backend/script/dev_data/permissions.py` for the organization executive role.
+
+#### API
+`backend/api/event.py` creates method `delete_event()` to delete an event by event ID from the event database while checking if the user is an Eli Exec. 
+
+#### Services
+`backend/services/event.py` has method `delete_event()` that gets the Event entity by event ID from the session, deletes that Event entity from the session, and commits the change to the session. It returns true once the function is complete. This only happens if the user is an Eli Exec. 
+
+### Frontend
+The folder `frontend/src/app/event` contains the implementation for deleting events.
+`event.service.ts` has a method `deleteEvent(eventId: number)` that makes an HTTP DELETE request to delete an event by event ID. 
+`event.component.ts` has a method `deleteEvent(eventId: number, eventName: string)` that once the delete button is clicked, it calls the confirm function of the ConfirmDelete Service. If outcome of confirm is true, then it deletes the event by calling deleteEvent function of the Event Service, otherwise nothing is changed.
+
+The folder `frontend/src/app/event/confirm-delete` contains the implementation for confirmation pop-up of event deletion.
+`confirm-delete.service.ts` creates the ConfirmDelete Service that has a method `confirm(title: string, message: string)` that opens a dialog pop-up with specified title and message. It returns true for confirm or false for cancel once a button is clicked and the dialog is closed.

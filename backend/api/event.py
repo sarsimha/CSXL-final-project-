@@ -60,7 +60,7 @@ def delete_event(
     except UserPermissionError as e:
         raise HTTPException(status_code=403, detail=str(e))
 
-#Get Event by ID
+# Get Event by ID
 @api.get("/get/{id}", response_model = Event, tags=['Event'])
 def get_event(id:int, subject: User= Depends(registered_user), eventService: EventService = Depends()):
     try:
@@ -71,7 +71,7 @@ def get_event(id:int, subject: User= Depends(registered_user), eventService: Eve
     except UserPermissionError as e:
         raise HTTPException(status_code=403, detail=str(e))
 
-#Update Event by Id
+# Update Event by Id
 @api.put("/update/{id}", response_model = Event, tags=['Event'])
 def update_event(id:int, eventForm: EventForm, subject: User= Depends(registered_user), eventService:EventService = Depends()):
     try:
