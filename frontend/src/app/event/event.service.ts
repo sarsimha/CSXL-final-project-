@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../authentication.service';
 import { mergeMap, Observable, of, shareReplay } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 
 
 export interface Event {
@@ -30,6 +31,7 @@ export class EventService {
       }),
       shareReplay(1)
     );
+
   }
   
   // Returns all events from database
@@ -37,4 +39,21 @@ export class EventService {
     return this.http.get<Event[]>('/api/event')
   }
 
+  // Returns list of events with a given organization name
+  searchEventByOrganization(org: string): Observable<Event[]> {
+    return this.http.get<Event[]>(`/api/event/${org}`).pipe(
+      map(data => {
+        return data;
+      }),
+      catchError((error: any) => {
+        console.error(error);
+        return of();
+      }),
+    );
+  }
+
+  // Deletes event by id
+  deleteEvent(eventId: number) {
+    return this.http.delete(`/api/event/delete/${eventId}`);
+  }
 }

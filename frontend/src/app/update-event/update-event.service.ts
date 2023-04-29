@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../authentication.service';
 import { mergeMap, Observable, of, shareReplay, throwError} from 'rxjs';
-import { DatePipe } from '@angular/common';
+import { catchError, map, find, filter } from 'rxjs/operators';
 
 export interface Event {
+  id?: number;
   name: string;
   orgName: string;
   location: string;
@@ -16,7 +17,7 @@ export interface Event {
 @Injectable({
   providedIn: 'root'
 })
-export class EventRegService {
+export class UpdateEventService {
   public events$: Observable<Event[] | undefined>;
 
   constructor(private http: HttpClient, protected auth: AuthenticationService) { 
@@ -32,11 +33,13 @@ export class EventRegService {
     );
   }
 
+  // get an observable event
   getEvents(): Observable<Event[]> {
     return this.http.get<Event[]>("/api/event");
   }
 
-  createEvent(name: string, orgName: string, location: string, description: string, date: string, time: string): Observable<Event> {
+  // this method takes resembles create event but allows exec to change details of their event (only eli exec)
+  updateEvent(eventId: number, name: string, orgName: string, location: string, description: string, date: string, time: string): Observable<Event> {
     let errors: string[] = [];
 
     if (name === "") {
@@ -73,6 +76,6 @@ export class EventRegService {
     
     let event: Event = {name, orgName, location, description, date, time};
 
-    return this.http.post<Event>("/api/event/create", event)
+    return this.http.put<Event>(`/api/event/update/${eventId}`, event);
   }
 }

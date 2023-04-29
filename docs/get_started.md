@@ -34,7 +34,9 @@ Once the Dev Container begins, open a terminal and complete the following:
 1. Install frontend dependencies: 
     1. `pushd frontend` 
     2. `npm install`
-    3. `popd`
+    3. `npm install angular-mat-datepicker`
+    4. `npm install --save ngx-material-timepicker`
+    5. `popd`
 2. Create database and reset demo data:
     2. `python3 -m backend.script.create_database`
     3. `python3 -m backend.script.reset_database`
