@@ -92,7 +92,7 @@ export class EventComponent {
           return this.eventService.getAllEvents();
         }
       })).subscribe(() => {
-          this.allEvents$ = this.eventService.getAllEvents();
+          this.allEvents$ = this.orderEvents();
         });
   }
 
